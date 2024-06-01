@@ -1,0 +1,116 @@
+/**
+*
+*Border Animation Hover Card
+*
+***/
+
+.card {
+    position: relative;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #e0f7fa;
+    color: #0097a7;
+    border: 1px solid #80deea;
+    transition: all 0.3s ease;
+  }
+  .card:hover {
+    box-shadow: 0px 0px 10px 0px #ddd;
+    border: 1px solid transparent;
+  }
+  .card::before {
+    content: "";
+    box-sizing: border-box;
+    border-radius: 4px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0px;
+    height: 0px;
+    border-left: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    transition: all 0.4s ease-out;
+  }
+  .card::after {
+    content: "";
+    box-sizing: border-box;
+    border-radius: 4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0px;
+    height: 0px;
+    border-right: 2px solid transparent;
+    border-top: 2px solid transparent;
+    transition: all 0.4s linear;
+  }
+  .card:hover::before {
+    border-left: 2px solid #ef9a9a;
+    border-bottom: 2px solid #ef9a9a;
+    width: 100%;
+    height: 100%;
+  }
+  .card:hover::after {
+    border-right: 2px solid lightskyblue;
+    border-top: 2px solid lightskyblue;
+    width: 100%;
+    height: 100%;
+  }
+  .card_main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0px;
+  }
+  .card_description {
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  
+  /**
+  * Animations
+  **/
+  
+  @keyframes topLeft {
+    0% {
+      width: 0;
+      height: 0;
+    }
+    1% {
+      width: 1px;
+      height: 0;
+    }
+    30% {
+      width: 1px;
+      height: 100%;
+    }
+    100% {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  @keyframes topLeft2 {
+    0% {
+      width: 0;
+      height: 0;
+    }
+    1% {
+      width: 1px;
+      height: 0;
+    }
+    30% {
+      width: 1px;
+      height: 100%;
+      border-color: mediumvioletred;
+    }
+    100% {
+      width: 100%;
+      height: 100%;
+      border-color: midnightblue;
+    }
+  }
+  

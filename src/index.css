@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo&display=swap");
+
+/* font and root style here */
+:root {
+  font-family: "Heebo", sans-serif !important;
+  margin: 0;
+  padding: 0;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: #f4f6f9;
+}
+
+
+/* ================================================================ */
+/* table group header style */
+.MuiDataGrid-columnHeader--filledGroup .MuiDataGrid-columnHeaderTitleContainer{
+
+  border-right: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+
+.test input:disabled {
+  border-radius: 5px;
+  padding-left: 4px;
+  border: 1px solid rgb(186, 186, 188) !important;
+}
+.test input::placeholder {
+  color: rgb(142, 141, 141);
+}
+
+.test .MuiInputBase-root input:disabled{
+  border: none !important;
+}

@@ -1,0 +1,111 @@
+.login_container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background: url('/src/assets/image/login_bg.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    animation: animateBg 10s linear infinite;
+  }
+  .card_body {
+    position: relative;
+    width: 400px;
+    height: 450px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(100px);
+    color: #fff;
+    border-radius: "1rem";
+  }
+  .heading {
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    position: absolute;
+    top: 13%;
+  }
+  .card_wrapper {
+    text-align: center;
+  }
+  @keyframes animateBg {
+    100% {
+      filter: hue-rotate(360deg);
+    }
+  }
+  
+
+  .custom_btn {
+    width: 100%;
+    height: 35px;
+    color: #fff;
+  
+    font-family: "Lato", sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, .2) 0px 3px 1px -2px, rgba(0, 0, 0, .14) 0px 2px 2px 0px, rgba(0, 0, 0, .12) 0px 1px 5px 0px;
+    outline: none;
+    padding: 0px 10px;
+    /* border-radius: 2px; */
+  }
+  .btn {
+    background: #2e7d32;
+    border: none;
+    z-index: 1;
+  }
+  .btn:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: #1b5e20;
+    transition: all 0.3s ease;
+  }
+  .btn:hover:after {
+    top: auto;
+    bottom: 0;
+    height: 100%;
+  }
+  .icon_wrapper {
+    font-size: 14px;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
+  .login_input_container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 40px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+  }
+  .login_icon_wrapper {
+    color: green;
+    height: 100%;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: none;
+    background-color: #ffffff;
+  }
+  
