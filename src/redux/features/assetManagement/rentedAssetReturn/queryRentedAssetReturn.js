@@ -28,6 +28,6 @@ const queryRentedAssetReturn = apiSlice.injectEndpoints({
 export const {
     useGetCurrentHolderForRentedAssetReturnQuery,
     useLazyGetSupplierForRentedAssetReturnQuery,
-    useLazyGetViewInTableForRentedAssetReturnDetailsQuery,
-    useLazyGetAddViewInTableForRentedAssetReturnDetailsQuery,
+    useGetViewInTableForRentedAssetReturnDetailsQuery,
+    useGetAddViewInTableForRentedAssetReturnDetailsQuery,
 } = queryRentedAssetReturn

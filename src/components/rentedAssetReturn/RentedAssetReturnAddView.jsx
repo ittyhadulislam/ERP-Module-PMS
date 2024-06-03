@@ -1,98 +1,121 @@
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import React, { useEffect } from 'react';
 import CustomAppBar from '../common/CustomAppBar';
 import CustomTable from '../table/CustomTable';
 import { useSelector } from 'react-redux';
-import { useLazyGetAddViewInTableForRentedAssetReturnDetailsQuery } from '../../redux/features/assetManagement/rentedAssetReturn/queryRentedAssetReturn';
+import { useGetAddViewInTableForRentedAssetReturnDetailsQuery } from '../../redux/features/assetManagement/rentedAssetReturn/queryRentedAssetReturn';
+import ReturnButton from '../buttons/ReturnButton';
+import SubmitButton from '../buttons/SubmitButton';
+import { useUpdateDataInTableForRentedAssetReturnCompleteMutation } from '../../redux/features/assetManagement/rentedAssetReturn/mutationRentedAssetReturn';
+import { useNavigate } from 'react-router-dom';
 
-const RentedAssetReturnAddView = () => {
+const RentedAssetReturnAddView = ({ autoUpdate }) => {
+
+    const navigate = useNavigate()
+
+    const { user } = useSelector(state => state.auth)
+
     const {
-        // returnDate,
+        returnDate,
         currentHolder,
         supplier,
     } = useSelector(state => state.rentedAssetReturn)
 
     // get Add View Details
-    const [setDetailsForShowData, { data: addViewDetails, isLoading: isAddViewLoading }] = useLazyGetAddViewInTableForRentedAssetReturnDetailsQuery()
+    const { data: addViewDetails, isLoading: isAddViewLoading, refetch } = useGetAddViewInTableForRentedAssetReturnDetailsQuery({
+        comID: currentHolder?.nCompanyID,
+        supID: supplier?.cSupCode
+    })
 
     useEffect(() => {
-        if (currentHolder && supplier) {
-            const payload = {
-                comID: currentHolder?.nCompanyID,
-                supID: supplier?.cSupCode
-            }
-            setDetailsForShowData(payload)
-        }
-    }, [currentHolder, supplier])
+        refetch()
+    }, [autoUpdate])
 
-    // console.log(addViewDetails)
+    // Update Complete
+    const [passParamsForAddDetailsLest] = useUpdateDataInTableForRentedAssetReturnCompleteMutation()
+
+
+    const handelComplete = async () => {
+        try {
+            const payload = [
+                {
+                    returnRefNo: 1,
+                    returnDate: returnDate,
+                    returnUser: user?.userName
+                }
+            ]
+            console.log(payload)
+            const response = await passParamsForAddDetailsLest(payload)
+            refetch()
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    const handelNavigation = () => {
+        navigate("/rented-asset-return-approval")
+    }
 
     const column = [
         {
-            field: "action",
-            headerName: "Select",
-            flex: 1,
-            minWidth: 75,
-            maxWidth: 75,
-        },
-        {
-            field: "AssetNo",
+            field: "rentAssetNo",
             headerName: "AssetNo",
             flex: 1,
             minWidth: 150,
             maxWidth: 150,
         },
         {
-            field: "MachineName",
+            field: "mcDesc",
             headerName: "Machine Name",
             flex: 1,
             minWidth: 230,
             maxWidth: 230,
         },
         {
-            field: "CompanyName",
+            field: "cCmpName",
             headerName: "Company Name",
             flex: 1,
             minWidth: 250,
             maxWidth: 250,
         },
         {
-            field: "Floor",
+            field: "cFloor_Descriptin",
             headerName: "Floor",
             flex: 1,
             minWidth: 130,
             maxWidth: 130,
         },
         {
-            field: "Line",
+            field: "line_No",
             headerName: "Line",
             flex: 1,
             minWidth: 120,
             maxWidth: 120,
         },
         {
-            field: "RentDate",
+            field: "rentDate",
             headerName: "Rent Date",
             flex: 1,
             minWidth: 150,
             maxWidth: 150,
         },
         {
-            field: "ReturnDate",
+            field: "returnDate",
             headerName: "Return Date",
             flex: 1,
             minWidth: 150,
             maxWidth: 150,
         },
         {
-            field: "InputUser",
+            field: "inputUser",
             headerName: "Input User",
             flex: 1,
             minWidth: 150,
             maxWidth: 150,
         },
         {
-            field: "InputDate",
+            field: "inputDate",
             headerName: "Input Date",
             flex: 1,
             minWidth: 150,
@@ -108,6 +131,25 @@ const RentedAssetReturnAddView = () => {
                 height={currentHolder && supplier ? addViewDetails?.length ? "auto" : "280px" : "280px"}
 
             />
+            <Box sx={{ my: 1, mb: 0, border: "1px dashed grey", mr: "1px" }}>
+                <Stack
+                    direction={"row"}
+                    p={0.5}
+                    spacing={2}
+                    justifyContent="end"
+                >
+                    <ReturnButton
+                        title={"Go To Approval"}
+                        type='reset'
+                        handleClick={handelNavigation}
+                    />
+                    <SubmitButton
+                        title={"Complete"}
+                        type='submit'
+                        handleClick={handelComplete}
+                    />
+                </Stack>
+            </Box>
         </Box>
     );
 };

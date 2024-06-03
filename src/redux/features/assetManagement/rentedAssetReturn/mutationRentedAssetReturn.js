@@ -1,12 +1,19 @@
-import { saveRentedAssetReturn } from "../../../../apiRoutes/assetManagement";
+import { saveRentedAssetReturnComplete, saveRentedReturnAdd } from "../../../../apiRoutes/assetManagement";
 import { apiSlice } from "../../../api/apiSlice";
 
 const mutationRentedAssetReturn = apiSlice.injectEndpoints({
     overrideExisting: true,
     endpoints: builder => ({
-        updateDataInTable1ForRentedAssetReturn: builder.mutation({
+        updateDataInTable1ForRentedAssetReturnAdd: builder.mutation({
             query: (payload) => ({
-                url: saveRentedAssetReturn,
+                url: saveRentedReturnAdd,
+                method: "PUT",
+                body: payload
+            })
+        }),
+        updateDataInTableForRentedAssetReturnComplete: builder.mutation({
+            query: (payload) => ({
+                url: saveRentedAssetReturnComplete,
                 method: "PUT",
                 body: payload
             })
@@ -15,5 +22,6 @@ const mutationRentedAssetReturn = apiSlice.injectEndpoints({
 })
 
 export const {
-    useUpdateDataInTable1ForRentedAssetReturnMutation,
+    useUpdateDataInTable1ForRentedAssetReturnAddMutation,
+    useUpdateDataInTableForRentedAssetReturnCompleteMutation
 } = mutationRentedAssetReturn

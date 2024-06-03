@@ -51,7 +51,19 @@ export const getCurrentHolderRentedAssetReturn = `${assetManagement_base_url}/Re
 export const getSupplierRentedAssetReturn = `${assetManagement_base_url}/RentedAssetReturn/GetSupplier`
 export const getViewInTableRentedAssetReturnDetails = `${assetManagement_base_url}/RentedAssetReturn/GetRentAssetList`
 export const getAddViewInTableRentedAssetReturnDetails = `${assetManagement_base_url}/RentedAssetReturn/GetReturnAddView`
-export const saveRentedAssetReturn = `${assetManagement_base_url}/RentedAssetReturn/PutAssetRent`
+
+// ----- post -----
+export const saveRentedReturnAdd = `${assetManagement_base_url}/RentedAssetReturn/PutReturnAdd`
+export const saveRentedAssetReturnComplete = `${assetManagement_base_url}/RentedAssetReturn/PutAssetRent`
+
+
+// ===================================== Rented Asset Return Approval ==================================
+export const getDataForApproval = `${assetManagement_base_url}/RentedAssetReturn/ForApproval_Asset_ReturnView`
+export const getDataApprovedRentedAssetReturnApproval = `${assetManagement_base_url}/RentedAssetReturn/GetApproval`
+
+// -- Update --
+export const updateDataForApproval = `${assetManagement_base_url}/RentedAssetReturn/ForApproval_Asset_Return`
+
 
 
 // ===================================== Fixed Asset Transfer ==================================
@@ -68,6 +80,10 @@ export const getViewListExternalFixedAssetTransfer = `${assetManagement_base_url
 export const saveAssetMasterInternal = `${assetManagement_base_url}/Asset_Transfer/Internal_Transfer_Save`
 export const saveAssetMasterExternal = `${assetManagement_base_url}/Asset_Transfer/External_Transfer_Save`
 
+// ===================================== Fixed Asset Transfer Approval ==================================
+export const getDataForInternalTransfer = `${assetManagement_base_url}/Asset_Transfer/GetInternalTransferAddView`
+export const getDataForExternalTransfer = `${assetManagement_base_url}/Asset_Transfer/GetExternalTransferAddView`
+export const getDataFixedAssetTransferApprovalForApproved = `${assetManagement_base_url}/Asset_Transfer/GetTransferView`
 
 // ===================================== Running Repair ==================================
 

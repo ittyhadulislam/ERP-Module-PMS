@@ -58,7 +58,7 @@ const FixedAssetTransferExternalInput = () => {
                     inputUser: user?.userName,
                 }
             ]
-            console.log(payload)
+            // console.log(payload)
             const res = await passExternalData(payload)
             console.log(res)
             if (res) {

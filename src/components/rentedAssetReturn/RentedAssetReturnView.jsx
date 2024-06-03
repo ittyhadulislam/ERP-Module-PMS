@@ -3,16 +3,18 @@ import CustomAppBar from '../common/CustomAppBar';
 import { Box, Stack } from '@mui/material';
 import CustomTable from '../table/CustomTable';
 import { useSelector } from 'react-redux';
-import { useLazyGetViewInTableForRentedAssetReturnDetailsQuery } from '../../redux/features/assetManagement/rentedAssetReturn/queryRentedAssetReturn';
+import { useGetViewInTableForRentedAssetReturnDetailsQuery } from '../../redux/features/assetManagement/rentedAssetReturn/queryRentedAssetReturn';
 import SubmitButton from '../buttons/SubmitButton';
-import ReturnButton from './../buttons/ReturnButton';
-import { useUpdateDataInTable1ForRentedAssetReturnMutation } from '../../redux/features/assetManagement/rentedAssetReturn/mutationRentedAssetReturn';
+// import ReturnButton from './../buttons/ReturnButton';
+import ResetButton from './../buttons/ResetButton'
+import { useUpdateDataInTable1ForRentedAssetReturnAddMutation } from '../../redux/features/assetManagement/rentedAssetReturn/mutationRentedAssetReturn';
 import { successToast } from './../../common/toaster/toaster';
 
-const RentedAssetReturnView = () => {
+const RentedAssetReturnView = ({ setAutoUpdate }) => {
 
     const [selectRows, setSelectRows] = useState([])
-    // console.log(selectRows)
+
+    console.log(selectRows);
 
     const {
         currentHolder,
@@ -25,34 +27,28 @@ const RentedAssetReturnView = () => {
 
 
     // ===== View List in Table =====
-    const [setParamForViewList, { data: viewList, isLoading }] = useLazyGetViewInTableForRentedAssetReturnDetailsQuery()
-    useEffect(() => {
-        if (currentHolder && supplier) {
-            const payload = {
-                comID: currentHolder?.nCompanyID,
-                supID: supplier?.cSupCode
-            }
-            setParamForViewList(payload)
-        }
-    }, [currentHolder, supplier])
+    const { data: viewList, isLoading, refetch } = useGetViewInTableForRentedAssetReturnDetailsQuery({
+        comID: currentHolder?.nCompanyID,
+        supID: supplier?.cSupCode
+    })
 
     // ----- post -----
 
-    const [saveDataRentedAssetReturn, { isLoading: isDataSaveLoading }] = useUpdateDataInTable1ForRentedAssetReturnMutation()
+    const [saveDataRentedAssetReturn] = useUpdateDataInTable1ForRentedAssetReturnAddMutation()
 
     const handelClick = async () => {
         try {
             const payload = selectRows.map((item) => ({
-                returnRefNo: item?.acat_id,
-                returnDate: returnDate,
-                returnUser: user?.userName
+                rentAssetNo: item?.rentAssetNo
             }))
-            console.log(payload);
+            // console.log(payload);
             const res = await saveDataRentedAssetReturn(payload)
             console.log(res);
-            // if (res) {
-            //     successToast(res?.data?.message)
-            // }
+            if (res) {
+                successToast(res?.data?.message)
+                refetch()
+                setAutoUpdate(prev => prev + 1)
+            }
         } catch (error) {
             console.log(error);
         }
@@ -142,7 +138,7 @@ const RentedAssetReturnView = () => {
                     spacing={2}
                     justifyContent="end"
                 >
-                    <ReturnButton
+                    <ResetButton
                         title={"Clear"}
                         type='reset'
                     />

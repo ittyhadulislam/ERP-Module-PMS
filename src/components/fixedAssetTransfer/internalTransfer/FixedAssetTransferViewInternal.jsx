@@ -5,7 +5,6 @@ import { useLazyGetViewListInternalQuery } from '../../../redux/features/assetMa
 
 const FixedAssetTransferViewInternal = () => {
     const { companyName } = useSelector(state => state.fixedAssetMaster)
-    console.log(companyName?.nCompanyID)
 
     const [setComIdForViewInTable, { data: viewData, isLoading: isViewLoading }] = useLazyGetViewListInternalQuery()
 
@@ -78,6 +77,7 @@ const FixedAssetTransferViewInternal = () => {
     return (
         <CustomTable
             columns={columns}
+            rows={viewData?.map((row, id) => ({ ...row, id }))}
         />
     );
 };

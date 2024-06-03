@@ -6,11 +6,9 @@ import FixedAssetTransferExternal from '../../components/fixedAssetTransfer/Fixe
 
 const FixedAssetTransfer = () => {
     const [select, setSelect] = useState("1")
-    console.log("select", select)
 
     let content
     // if Internal Transfer Select 
-
     if (select === "1") {
         content = <FixedAssetTransferInternal />
     }

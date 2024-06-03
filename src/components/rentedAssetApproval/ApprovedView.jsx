@@ -1,82 +1,96 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CustomTable from '../table/CustomTable';
 import { Box } from '@mui/material';
 import CustomAppBar from '../common/CustomAppBar';
+import { useSelector } from 'react-redux';
+import { useLazyGetRentedAssetApprovedQuery } from '../../redux/features/assetManagement/rentedAssetApproval/queryRentedAssetApproval';
 
 const ApprovedView = () => {
+
+    const { user } = useSelector(state => state.auth)
+
+    // get and show approve data
+
+    const [getDataRentedAssetApproved, { data, isLoading }] = useLazyGetRentedAssetApprovedQuery()
+    console.log(data)
+    useEffect(() => {
+        getDataRentedAssetApproved(user?.companyID)
+    }, [])
+
+
     const column = [
         {
-            field: "AssetNo",
+            field: "rentAssetNo",
             headerName: "AssetNo",
             flex: 1,
             minWidth: 150,
             maxWidth: 150,
         },
         {
-            field: "MachineName",
+            field: "mcDesc",
             headerName: "Machine Name",
             flex: 1,
             minWidth: 230,
             maxWidth: 230,
         },
         {
-            field: "CompanyName",
+            field: "cCmpName",
             headerName: "Company Name",
             flex: 1,
             minWidth: 250,
             maxWidth: 250,
         },
         {
-            field: "Floor",
+            field: "cFloor_Descriptin",
             headerName: "Floor",
             flex: 1,
             minWidth: 130,
             maxWidth: 130,
         },
         {
-            field: "Line",
+            field: "line_No",
             headerName: "Line",
             flex: 1,
             minWidth: 120,
             maxWidth: 120,
         },
         {
-            field: "RentDate",
+            field: "rentDate",
             headerName: "Rent Date",
             flex: 1,
             minWidth: 150,
             maxWidth: 150,
         },
         {
-            field: "ReturnDate",
+            field: "returnDate",
             headerName: "Return Date",
             flex: 1,
             minWidth: 150,
             maxWidth: 150,
         },
         {
-            field: "InputUser",
+            field: "cUserFullname",
             headerName: "Created By",
             flex: 1,
             minWidth: 150,
             maxWidth: 150,
         },
         {
-            field: "InputDate",
+            field: "returnInputDate",
             headerName: "Created Date",
             flex: 1,
             minWidth: 150,
             maxWidth: 150,
         },
         {
-            field: "InputUser1",
+            field: "rentApproveBy",
             headerName: "Approved By",
             flex: 1,
             minWidth: 150,
             maxWidth: 150,
         },
         {
-            field: "InputDate1",
+            field: "rentApproveDate",
             headerName: "Approved Date",
             flex: 1,
             minWidth: 150,
@@ -88,7 +102,8 @@ const ApprovedView = () => {
             <CustomAppBar title={"Rented Asset Return Details"} />
             <CustomTable
                 columns={column}
-                rows={[]}
+                rows={data?.map((row, id) => ({ ...row, id }))}
+                height={data?.length ? "auto" : "280px"}
             />
         </Box>
     );

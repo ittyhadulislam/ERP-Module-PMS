@@ -86,7 +86,6 @@ const FixedAssetTransferViewExternal = () => {
     return (
         <CustomTable
             columns={columns}
-            // rows={viewData?.map((data, index) => ({ ...data, index }))}
             rows={viewData?.map((row, id) => ({ ...row, id }))}
             loading={isViewLoading}
             height={viewData?.length ? "auto" : "280px"}
