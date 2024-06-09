@@ -6,8 +6,9 @@ import { useGetRentedAssetForApprovalQuery } from '../../redux/features/assetMan
 import ReturnButton from '../buttons/ReturnButton';
 import SubmitButton from '../buttons/SubmitButton';
 import ErrorButton from '../buttons/ErrorButton';
-import { useUpdateForApprovalMutation } from '../../redux/features/assetManagement/rentedAssetApproval/mutetionRentedAssetApproval';
+import { useDeleteForApprovalMutation, useUpdateForApprovalMutation } from '../../redux/features/assetManagement/rentedAssetApproval/mutetionRentedAssetApproval';
 import { useNavigate } from 'react-router-dom';
+import { errorToast } from '../../common/toaster/toaster';
 
 const ForApprovalView = () => {
     const [selectedRow, setSelectedRow] = useState([])
@@ -15,12 +16,12 @@ const ForApprovalView = () => {
     const {
         user
     } = useSelector(state => state.auth)
-    console.log(user)
+
 
     // ----- view data for approval
 
     const { data: showDetailsForApproval, isLoading: isViewLoading, refetch } = useGetRentedAssetForApprovalQuery(user.companyID)
-    // console.log(showDetailsForApproval)
+
     // ----- update for Approval ------
     const [passValueForApproval, { isLoading }] = useUpdateForApprovalMutation()
 
@@ -30,9 +31,26 @@ const ForApprovalView = () => {
                 assetNo: item?.rentAssetNo,
                 appby: user?.userName
             }))
-            // console.log(payload)
             const res = passValueForApproval(payload)
             if (res) {
+                refetch()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // Delete For Approval
+    const [deleteTableData] = useDeleteForApprovalMutation()
+    const handelDelete = () => {
+        try {
+            const payload = {
+                assetNo: selectedRow?.rentAssetNo,
+                cancelBy: user?.useName
+            }
+            const response = deleteTableData(payload)
+            if (response) {
+                errorToast("Row Delete Successfully")
                 refetch()
             }
         } catch (error) {
@@ -138,7 +156,7 @@ const ForApprovalView = () => {
                         <ErrorButton
                             title={"Cancel"}
                             type='submit'
-                        // handleClick={}
+                            handleClick={handelDelete}
                         />
                         <SubmitButton
                             title={"Approve"}

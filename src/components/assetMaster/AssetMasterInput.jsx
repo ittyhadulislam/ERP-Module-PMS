@@ -235,7 +235,7 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                     lineId: line?.line_Code,
                     purchaseDate: purchaseDate ? purchaseDate : "",
                     asstCateId: assetCategory ? assetCategory?.acat_id.toString() : "",
-                    asstSpId: assetSpacialFeature ? assetSpacialFeature?.asf_id.toString() : "",
+                    asstSpId: assetSpacialFeature ? assetSpacialFeature?.asf_descrip.toString() : "",
                     asstStatusId: assetStatus ? Number(assetStatus?.statusId) : "",
                     asstNameId: assetName ? assetName?.mcCode.toString() : "",
                     asstNo: assetNo,

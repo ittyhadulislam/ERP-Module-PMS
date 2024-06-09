@@ -1,4 +1,4 @@
-import { updateDataForApproval } from "../../../../apiRoutes/assetManagement";
+import { deleteForApproval, updateDataForApproval } from "../../../../apiRoutes/assetManagement";
 import { apiSlice } from "../../../api/apiSlice";
 
 const mutationRentedAssetApproval = apiSlice.injectEndpoints({
@@ -10,10 +10,18 @@ const mutationRentedAssetApproval = apiSlice.injectEndpoints({
                 method: "PUT",
                 body: payload
             })
+        }),
+        deleteForApproval: builder.mutation({
+            query: () => ({
+                url: deleteForApproval,
+                method: "DELETE"
+
+            })
         })
     })
 })
 
 export const {
-    useUpdateForApprovalMutation
+    useUpdateForApprovalMutation,
+    useDeleteForApprovalMutation
 } = mutationRentedAssetApproval

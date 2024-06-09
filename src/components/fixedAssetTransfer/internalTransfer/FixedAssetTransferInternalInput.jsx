@@ -166,7 +166,7 @@ const FixedAssetTransferInternalInput = () => {
                                         label={"Asset No#"}
                                         name={"assetNo"}
                                         options={companyName && fromFloor && fromLine ? assetNoDate?.result ?? [] : []}
-                                        // optionId={""}
+                                        optionId={"mcAsstNo"}
                                         optionLabel={"mcAsstNo"}
                                         value={assetNo}
                                         setReduxState={setFixedAssetTransfer}

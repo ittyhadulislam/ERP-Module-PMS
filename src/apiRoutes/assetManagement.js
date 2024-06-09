@@ -64,6 +64,8 @@ export const getDataApprovedRentedAssetReturnApproval = `${assetManagement_base_
 // -- Update --
 export const updateDataForApproval = `${assetManagement_base_url}/RentedAssetReturn/ForApproval_Asset_Return`
 
+// ----- Delete -----
+export const deleteForApproval = `${assetManagement_base_url}/RentedAssetReturn/Asset_ReturnCancel`
 
 
 // ===================================== Fixed Asset Transfer ==================================
@@ -80,10 +82,16 @@ export const getViewListExternalFixedAssetTransfer = `${assetManagement_base_url
 export const saveAssetMasterInternal = `${assetManagement_base_url}/Asset_Transfer/Internal_Transfer_Save`
 export const saveAssetMasterExternal = `${assetManagement_base_url}/Asset_Transfer/External_Transfer_Save`
 
+
 // ===================================== Fixed Asset Transfer Approval ==================================
 export const getDataForInternalTransfer = `${assetManagement_base_url}/Asset_Transfer/GetInternalTransferAddView`
 export const getDataForExternalTransfer = `${assetManagement_base_url}/Asset_Transfer/GetExternalTransferAddView`
 export const getDataFixedAssetTransferApprovalForApproved = `${assetManagement_base_url}/Asset_Transfer/GetTransferView`
+
+// ----- Update -----
+export const updateInternalApproval = `${assetManagement_base_url}/Asset_Transfer/Asset_InternalTransfer_Approval`
+export const updateExternalApproval = `${assetManagement_base_url}/Asset_Transfer/Asset_ExternalTransfer_Approval`
+
 
 // ===================================== Running Repair ==================================
 

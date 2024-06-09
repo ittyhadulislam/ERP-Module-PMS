@@ -17,7 +17,6 @@ const ApprovedView = () => {
         getDataRentedAssetApproved(user?.companyID)
     }, [])
 
-
     const column = [
         {
             field: "rentAssetNo",

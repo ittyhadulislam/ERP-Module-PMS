@@ -8,18 +8,40 @@ import SubmitButton from '../buttons/SubmitButton';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useGetExternalTransferDetailsForApprovalQuery } from '../../redux/features/assetManagement/fixedAssetTransferApproval/queryFixedAssetTransferApproval';
+import { useUpdateExternalTransferApprovalMutation } from '../../redux/features/assetManagement/fixedAssetTransferApproval/mutationFixedAssetTransferApproval';
+import { successToast } from '../../common/toaster/toaster';
 
 const ExternalForApprovalView = () => {
     const [selectedRow, setSelected] = useState([])
+    // console.log(selectedRow)
     const navigate = useNavigate()
     const { user } = useSelector(state => state.auth)
 
     // get and show data
-    const { data, isLoading } = useGetExternalTransferDetailsForApprovalQuery({
+    const { data, isLoading, refetch } = useGetExternalTransferDetailsForApprovalQuery({
         comID: user?.companyID,
         userName: user?.userName
     })
-    console.log(data)
+
+    // update approval
+    const [passPayloadOverUpdateAPI] = useUpdateExternalTransferApprovalMutation()
+
+    const handelApprove = async () => {
+        try {
+            const payload = selectedRow?.map(item => ({
+                assetNo: item?.iet_asset_no,
+                approval_by: user?.userName
+            }))
+            // console.log(payload);
+            const response = await passPayloadOverUpdateAPI(payload)
+            if (response) {
+                successToast("Approve Successfully")
+                refetch()
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const handelReturn = () => {
         navigate("/fixed-asset-transfer")
@@ -116,7 +138,7 @@ const ExternalForApprovalView = () => {
                         <SubmitButton
                             title={"Approve"}
                             type='submit'
-                        // handleClick={handelApprove}
+                            handleClick={handelApprove}
                         />
                     </Box>
                 </Stack>
