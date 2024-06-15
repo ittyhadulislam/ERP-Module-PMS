@@ -17,7 +17,7 @@ const RentedAssetView = ({ setGetDetailsForEdit = () => { } }) => {
             AssetNo: assetNo
         }
         getRentedAssetView(payload)
-    }, [assetNo, getRentedAssetView])
+    }, [assetNo])
 
     const handelSelect = (payload) => {
         // console.log(payload)

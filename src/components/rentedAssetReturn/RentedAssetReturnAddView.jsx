@@ -147,6 +147,7 @@ const RentedAssetReturnAddView = ({ autoUpdate }) => {
                         title={"Complete"}
                         type='submit'
                         handleClick={handelComplete}
+                        disabled={!returnDate}
                     />
                 </Stack>
             </Box>

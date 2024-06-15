@@ -17,6 +17,8 @@ const ForApprovalView = () => {
         user
     } = useSelector(state => state.auth)
 
+    console.log(selectedRow)
+
 
     // ----- view data for approval
 
@@ -162,6 +164,7 @@ const ForApprovalView = () => {
                             title={"Approve"}
                             type='submit'
                             handleClick={handelApprove}
+                            disabled={selectedRow?.length > 0 ? false : true}
                         />
                     </Box>
                 </Stack>

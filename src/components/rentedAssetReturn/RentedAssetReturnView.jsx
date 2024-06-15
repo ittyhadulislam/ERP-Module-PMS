@@ -10,20 +10,19 @@ import ResetButton from './../buttons/ResetButton'
 import { useUpdateDataInTable1ForRentedAssetReturnAddMutation } from '../../redux/features/assetManagement/rentedAssetReturn/mutationRentedAssetReturn';
 import { successToast } from './../../common/toaster/toaster';
 
-const RentedAssetReturnView = ({ setAutoUpdate }) => {
+const RentedAssetReturnView = ({ setAutoUpdate = () => { } }) => {
 
     const [selectRows, setSelectRows] = useState([])
 
-    console.log(selectRows);
+    // console.log(selectRows);
 
     const {
         currentHolder,
         supplier,
         returnDate
     } = useSelector(state => state.rentedAssetReturn)
-    const {
-        user
-    } = useSelector(state => state.auth)
+
+    const { user } = useSelector(state => state.auth)
 
 
     // ===== View List in Table =====
@@ -31,6 +30,8 @@ const RentedAssetReturnView = ({ setAutoUpdate }) => {
         comID: currentHolder?.nCompanyID,
         supID: supplier?.cSupCode
     })
+
+    // console.log(viewList)
 
     // ----- post -----
 
@@ -41,13 +42,12 @@ const RentedAssetReturnView = ({ setAutoUpdate }) => {
             const payload = selectRows.map((item) => ({
                 rentAssetNo: item?.rentAssetNo
             }))
-            // console.log(payload);
             const res = await saveDataRentedAssetReturn(payload)
             console.log(res);
             if (res) {
                 successToast(res?.data?.message)
-                refetch()
                 setAutoUpdate(prev => prev + 1)
+                refetch()
             }
         } catch (error) {
             console.log(error);
@@ -146,6 +146,7 @@ const RentedAssetReturnView = ({ setAutoUpdate }) => {
                         title={"Add"}
                         type='submit'
                         handleClick={handelClick}
+                        disabled={selectRows?.length > 0 ? false : true}
                     />
                 </Stack>
             </Box>

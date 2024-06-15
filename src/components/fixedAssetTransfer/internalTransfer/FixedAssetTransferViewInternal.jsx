@@ -1,76 +1,74 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import CustomTable from '../../table/CustomTable';
 import { useSelector } from 'react-redux';
-import { useLazyGetViewListInternalQuery } from '../../../redux/features/assetManagement/fixedAssetTransfer/queryFixedAssetTransfer';
+import { useGetViewListInternalQuery } from '../../../redux/features/assetManagement/fixedAssetTransfer/queryFixedAssetTransfer';
+import { formateDate } from './../../../utils/formateDate';
 
-const FixedAssetTransferViewInternal = () => {
+
+const FixedAssetTransferViewInternal = ({ refetchData }) => {
     const { companyName } = useSelector(state => state.fixedAssetMaster)
 
-    const [setComIdForViewInTable, { data: viewData, isLoading: isViewLoading }] = useLazyGetViewListInternalQuery()
+    const { data: viewData, isLoading: isViewLoading, refetch } = useGetViewListInternalQuery({ comID: companyName?.nCompanyID })
 
     useEffect(() => {
-        const payload = {
-            comID: companyName?.nCompanyID
-        }
-        setComIdForViewInTable(payload)
-    }, [companyName])
+        refetch()
+    }, [refetchData])
+
+    console.log(viewData)
 
     const columns = [
         {
-            field: "action",
-            headerName: "Select",
-            flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
-        },
-        {
-            field: "AssetNo",
+            field: "iet_asset_no",
             headerName: "Asset No #",
             flex: 1,
-            minWidth: 200,
-            maxWidth: 200,
+            // minWidth: 120,
+            // maxWidth: 120,
         },
         {
-            field: "company",
+            field: "fromCom",
             headerName: "Company",
             flex: 1,
-            minWidth: 250,
-            maxWidth: 250,
+            // minWidth: 200,
+            // maxWidth: 200,
         },
         {
-            field: "fromFloor",
+            field: "floorfrom",
             headerName: "From Floor",
             flex: 1,
-            minWidth: 200,
-            maxWidth: 200,
+            // minWidth: 120,
+            // maxWidth: 120,
         },
         {
-            field: "ToFloor",
+            field: "floorto",
             headerName: "To Floor",
             flex: 1,
-            minWidth: 200,
-            maxWidth: 200,
+            // minWidth: 120,
+            // maxWidth: 120,
         },
         {
-            field: "fromLine",
+            field: "fromline",
             headerName: "From Line",
             flex: 1,
-            minWidth: 200,
-            maxWidth: 200,
+            // minWidth: 120,
+            // maxWidth: 120,
         },
         {
-            field: "ToLine",
+            field: "toline",
             headerName: "To Line",
             flex: 1,
-            minWidth: 200,
-            maxWidth: 200,
+            // minWidth: 120,
+            // maxWidth: 120,
         },
         {
-            field: "TransferDate",
+            field: "iet_date",
             headerName: "Transfer Date",
             flex: 1,
-            minWidth: 200,
-            maxWidth: 200,
+            valueFormatter: (param) => {
+                return formateDate(param.value)
+            }
+            // minWidth: 200,
+            // maxWidth: 200,
         },
 
     ]
@@ -78,6 +76,10 @@ const FixedAssetTransferViewInternal = () => {
         <CustomTable
             columns={columns}
             rows={viewData?.map((row, id) => ({ ...row, id }))}
+            checkboxSelection
+            setSelectedRows={{}}
+            loading={isViewLoading}
+            height={viewData?.length ? "auto" : "280px"}
         />
     );
 };

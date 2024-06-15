@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useGetAssetNoForRunningRepairQuery, useLazyGetDetailsBasedOnAssetNoForRunningRepairQuery } from '../../redux/features/assetManagement/runningRepair/queryRunningRepair';
 import { clearFieldRunningRepair, setRunningRepair } from '../../redux/features/assetManagement/runningRepair/runningRepairSlice';
 import { useSaveRunningRepairMutation } from '../../redux/features/assetManagement/runningRepair/mutationRunningRepair';
-import { successToast } from '../../common/toaster/toaster';
+import { successToast, warningToast } from '../../common/toaster/toaster';
 
 const RunningRepairInput = ({ setRefetch }) => {
 
@@ -107,12 +107,15 @@ const RunningRepairInput = ({ setRefetch }) => {
             ]
             console.log(payload)
             const response = await saveData(payload)
-            console.log(response)
+            // console.log(response?.data?.message.trim())
 
-            if (response) {
-                successToast(response?.data?.message)
+            if (response?.data?.message.trim() == "Save Successfully") {
+                successToast(response?.data?.message.trim())
                 setRefetch((prev) => prev + 1)
                 dispatch(clearFieldRunningRepair())
+            }
+            if (response?.data?.message.trim() == "Already Exists") {
+                warningToast(response?.data?.message.trim())
             }
         } catch (error) {
             console.log(error)

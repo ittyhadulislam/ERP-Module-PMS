@@ -24,6 +24,7 @@ import fixedAssetTransferSlice from "./features/assetManagement/fixedAssetTransf
 import runningRepairSlice from "./features/assetManagement/runningRepair/runningRepairSlice";
 import scheduleMaintenanceSlice from "./features/assetManagement/ScheduleMaintenance/scheduleMaintenanceSlice";
 import rentedAssetApprovalSlice from "./features/assetManagement/rentedAssetApproval/rentedAssetApprovalSlice";
+import assetReportSlice from "./features/assetManagement/assetReport/assetReportSlice";
 
 export const store = configureStore({
   reducer: {
@@ -53,6 +54,7 @@ export const store = configureStore({
     runningRepair: runningRepairSlice,
     scheduleMaintenance: scheduleMaintenanceSlice,
     rentedAssetApproval: rentedAssetApprovalSlice,
+    assetReport: assetReportSlice
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>

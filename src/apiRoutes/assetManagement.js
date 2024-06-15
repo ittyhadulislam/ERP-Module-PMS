@@ -105,8 +105,22 @@ export const saveRunningRepair = `${assetManagement_base_url}/Asset_Running_Repa
 // ===================================== Schedule Maintenance ==================================
 export const getAssetNoScheduleMaintenance = `${assetManagement_base_url}/Schedule_Maintenance/GetAssetNo`
 export const getDetailsBasedOnAssetNoScheduleMaintenance = `${assetManagement_base_url}/Schedule_Maintenance/GetAsset_Master_List`
+export const getServiceType = `${assetManagement_base_url}/Schedule_Maintenance/GetServiceDescription`
+
 
 // ----- Post -----
 export const saveScheduleMaintenance = `${assetManagement_base_url}/Schedule_Maintenance/ScheduleMaintenanceSave`
+
+
+// ===================================== Report =================================
+export const getAssetManagementReport = `${assetManagement_base_url}/AssetReport/AssetManagementReport` //d
+export const getAssetInformationDetails = `${assetManagement_base_url}/AssetReport/AssetDetailsReport`
+export const getAssetDetailsSummaryReport = `${assetManagement_base_url}/AssetReport/AssetDetailsSummary` //d
+export const getRunningReport = `${assetManagement_base_url}/AssetReport/AssetDetails_RepairReport` //d
+export const getAssetDetailMasterReport = `${assetManagement_base_url}/AssetReport/AssetDetailsMaster_Report` //d
+export const getInternalReport = `${assetManagement_base_url}/AssetReport/InternalFixedAssetTransferReport` //d
+export const getExternalReport = `${assetManagement_base_url}/AssetReport/ExternalFixedAssetTransferReport` //d
+export const getRentedAssetReport = `${assetManagement_base_url}/AssetReport/RentedAssetDetailsReport` //d
+export const getAssetSummaryReport = `${assetManagement_base_url}/AssetReport/AssetSummaryReport` //d
 
 // console.log(getLineFixedAssetTransfer)

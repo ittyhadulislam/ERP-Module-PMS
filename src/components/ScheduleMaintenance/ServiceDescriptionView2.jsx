@@ -4,6 +4,7 @@ import CustomTable from '../table/CustomTable';
 import { Box } from '@mui/material';
 
 const ServiceDescriptionView2 = () => {
+
     const column = [
         {
             field: "AssetNo",

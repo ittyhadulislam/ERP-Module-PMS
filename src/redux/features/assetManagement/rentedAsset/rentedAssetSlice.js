@@ -4,7 +4,7 @@ const initialState = {
     currentHolder: null,
     floor: null,
     line: null,
-    challanNo: "",
+    challanNoText: "",
     rentedDate: null,
     returnDate: null,
     assetCategory: null,
@@ -16,9 +16,9 @@ const initialState = {
     brand: null,
     model: "",
     supplier: null,
-    costParDay: null,
+    costParDay: "",
     currency: null,
-    totalRentedDays: null,
+    totalRentedDays: "",
 }
 
 const rentedAssetSlice = createSlice({
@@ -33,7 +33,7 @@ const rentedAssetSlice = createSlice({
             state.currentHolder = null,
                 state.floor = null,
                 state.line = null,
-                state.challanNo = "",
+                state.challanNoText = "",
                 state.rentedDate = null,
                 state.returnDate = null,
                 state.assetCategory = null,
@@ -45,9 +45,9 @@ const rentedAssetSlice = createSlice({
                 state.brand = null,
                 state.model = "",
                 state.supplier = null,
-                state.costParDay = null,
+                state.costParDay = "",
                 state.currency = null,
-                state.totalRentedDays = null
+                state.totalRentedDays = ""
         },
     }
 })

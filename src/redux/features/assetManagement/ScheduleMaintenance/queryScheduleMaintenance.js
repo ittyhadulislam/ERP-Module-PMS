@@ -1,7 +1,8 @@
 import { apiSlice } from "../../../api/apiSlice";
 import {
     getAssetNoScheduleMaintenance,
-    getDetailsBasedOnAssetNoScheduleMaintenance
+    getDetailsBasedOnAssetNoScheduleMaintenance,
+    getServiceType
 } from "../../../../apiRoutes/assetManagement";
 
 const queryScheduleMaintenance = apiSlice.injectEndpoints({
@@ -12,6 +13,9 @@ const queryScheduleMaintenance = apiSlice.injectEndpoints({
         }),
         getDetailsBasedOnAssetNoForScheduleMaintenance: builder.query({
             query: (assetNo) => `${getDetailsBasedOnAssetNoScheduleMaintenance}?AsstNo=${assetNo}`
+        }),
+        getServiceType: builder.query({
+            query: () => `${getServiceType}`
         })
     })
 })
@@ -19,4 +23,5 @@ const queryScheduleMaintenance = apiSlice.injectEndpoints({
 export const {
     useGetAssetNoScheduleMaintenanceQuery,
     useLazyGetDetailsBasedOnAssetNoForScheduleMaintenanceQuery,
+    useGetServiceTypeQuery
 } = queryScheduleMaintenance

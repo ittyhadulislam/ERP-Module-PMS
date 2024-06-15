@@ -29,7 +29,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
         currentHolder,
         floor,
         line,
-        challanNo,
+        challanNoText,
         rentedDate,
         returnDate,
         assetCategory,
@@ -46,7 +46,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
         totalRentedDays,
     } = useSelector(state => state.rentedAsset)
 
-    console.log(floor)
+    console.log(assetSpatialFeature)
 
 
     // ========== CurrentHolder ==========
@@ -104,13 +104,13 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                         currentHolder: currentHolder?.nCompanyID,
                         floorID: floor?.nFloor,
                         lineId: line?.line_Code,
-                        challanNo: parseInt(challanNo),
-                        rentedDate: new Date(rentedDate).toISOString(),
-                        returnDate: new Date(returnDate).toISOString(),
+                        challanNo: challanNoText,
+                        rentedDate: rentedDate,
+                        returnDate: returnDate,
                         assetCate: assetCategory?.acat_id,
                         assetSpFeature: assetSpatialFeature?.asf_id,
                         assetStatus: assetStatus?.statusId,
-                        assetName: assetName?.mcCode,
+                        assetName: assetName?.mcDesc,
                         assetNo: assetNo,
                         serialNo: serialNo,
                         brand: brand?.nBrand_ID,
@@ -141,7 +141,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
             // dispatch(setAssetMaster({ key: "company", value: { cCmpName: editsble?.cCmpName, nCompanyID: editsble?.mcCompanyID } }))
             dispatch(setRentedAsset({ key: "floor", value: { nFloor: getDetailsForEdit?.nFloor, cFloor_Descriptin: getDetailsForEdit?.cFloor_Descriptin } }))
             dispatch(setRentedAsset({ key: "line", value: { line_No: getDetailsForEdit?.line_No, line_Code: getDetailsForEdit?.line_Code } }))
-            dispatch(setRentedAsset({ key: "challanNo", value: getDetailsForEdit?.rentChallan }))
+            dispatch(setRentedAsset({ key: "challanNoText", value: getDetailsForEdit?.rentChallan }))
             dispatch(setRentedAsset({ key: "rentedDate", value: formateDate(getDetailsForEdit?.rentDate) }))
             dispatch(setRentedAsset({ key: "returnDate", value: formateDate(getDetailsForEdit?.returnDate) }))
             dispatch(setRentedAsset({ key: "assetCategory", value: { acat_name: getDetailsForEdit?.acat_name, acat_id: getDetailsForEdit?.acat_id } }))
@@ -169,7 +169,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                     currentHolder: currentHolder?.nCompanyID,
                     floorID: floor?.nFloor,
                     lineId: line?.line_Code,
-                    challanNo: parseInt(challanNo),
+                    challanNo: challanNoText,
                     rentedDate: new Date(rentedDate).toISOString(),
                     returnDate: new Date(returnDate).toISOString(),
                     assetCate: assetCategory?.acat_id,
@@ -252,8 +252,8 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                         <Grid item xs={12} sm={6} md={2}>
                             <CustomTextInput
                                 label={"Challan No#"}
-                                name='challanNo'
-                                value={challanNo}
+                                name='challanNoText'
+                                value={challanNoText}
                                 setReduxState={setRentedAsset}
                             />
                         </Grid>

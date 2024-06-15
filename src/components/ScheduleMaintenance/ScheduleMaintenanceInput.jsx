@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import CustomAppBar from '../common/CustomAppBar';
 import { Box, Grid, Stack } from '@mui/material';
@@ -7,10 +8,14 @@ import CustomTextInput from '../inputs/CustomTextInput';
 import SubmitButton from '../buttons/SubmitButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetAssetNoScheduleMaintenanceQuery, useLazyGetDetailsBasedOnAssetNoForScheduleMaintenanceQuery } from '../../redux/features/assetManagement/ScheduleMaintenance/queryScheduleMaintenance';
-import { setScheduleMaintenance } from '../../redux/features/assetManagement/ScheduleMaintenance/scheduleMaintenanceSlice';
+import { setResetScheduleMaintenance, setScheduleMaintenance } from '../../redux/features/assetManagement/ScheduleMaintenance/scheduleMaintenanceSlice';
+import { useScheduleMaintenanceSaveMutation } from '../../redux/features/assetManagement/ScheduleMaintenance/mutationScheduleMaintenance';
+import { errorToast, successToast } from '../../common/toaster/toaster';
 
-const ScheduleMaintenanceInput = () => {
+const ScheduleMaintenanceInput = ({ getServiceType, setIsSuccess = () => { } }) => {
+    // console.log(getServiceType)
     const dispatch = useDispatch()
+    const { user } = useSelector(state => state.auth)
 
     const {
         assetNo,
@@ -37,7 +42,7 @@ const ScheduleMaintenanceInput = () => {
         setDataInState(assetNo?.mcAsstNo)
     }, [assetNo?.mcAsstNo, setDataInState])
 
-    console.log(getData)
+    // console.log(getData)
 
     useEffect(() => {
         if (assetNo && getData) {
@@ -58,12 +63,54 @@ const ScheduleMaintenanceInput = () => {
         }
     }, [assetNo && getData])
 
+    // === Post ===
+
+    const [passPayloadOverApi] = useScheduleMaintenanceSaveMutation()
+
+    const handelSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const payload = {
+                scheduleMaintenanceModels: [
+                    {
+                        assetno: assetNo?.mcAsstNo,
+                        nextservicedate: nextServiceDate,
+                        itemreplace: itemToBeReplace,
+                        readydate: readyDate,
+                        doneby: doneBy,
+                        inputUser: user?.userName
+                    }
+                ],
+                smServiceTypeSaveModels: getServiceType?.map((item) => (
+                    {
+                        assetno: assetNo?.mcAsstNo,
+                        serviceID: item?.id,
+                        readyDate: readyDate,
+                        inputUser: user?.userName
+                    }
+                )),
+            }
+
+            console.log(payload)
+            const res = await passPayloadOverApi(payload)
+            if (res) {
+                successToast(res?.data?.message)
+                dispatch(setResetScheduleMaintenance())
+                setIsSuccess(true)
+            }
+            else {
+                errorToast("Something went wrong")
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <>
             <CustomAppBar title={"SCHEDULE MAINTENANCE"} />
             <Box sx={{ p: 1, border: "1px dashed grey", borderTop: "none" }}>
-                <form>
+                <form onSubmit={handelSubmit}>
                     <Grid container spacing={1} mt={"5px"}>
                         <Grid item xs={12} sm={6} md={2}>
                             <CustomAutocomplete

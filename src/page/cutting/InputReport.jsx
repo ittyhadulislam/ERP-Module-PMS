@@ -454,7 +454,7 @@ const InputReport = () => {
                   <CustomDatePicker
                     label={
                       title === "Line Wise Input Report-Daily" ||
-                      title === "Input To Sewing WIP Report-Daily"
+                        title === "Input To Sewing WIP Report-Daily"
                         ? "Date"
                         : "From Date"
                     }

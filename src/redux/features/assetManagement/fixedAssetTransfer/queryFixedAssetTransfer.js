@@ -43,6 +43,6 @@ export const {
     useLazyGetLineForFixedAssetTransferQuery,
     useLazyGetAssetNoForFixedAssetTransferInternalQuery,
     useLazyGetAssetNoForFixedAssetTransferExternalQuery,
-    useLazyGetViewListInternalQuery,
+    useGetViewListInternalQuery,
     useLazyGetViewListExternalQuery,
 } = queryFixedAssetTransfer

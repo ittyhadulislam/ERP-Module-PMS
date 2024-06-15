@@ -19,7 +19,8 @@ import { successToast } from '../../../common/toaster/toaster';
 
 
 
-const FixedAssetTransferInternalInput = () => {
+// eslint-disable-next-line react/prop-types
+const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
 
     const { user } = useSelector(state => state.auth)
     // console.log(user?.userName);
@@ -86,7 +87,7 @@ const FixedAssetTransferInternalInput = () => {
                 {
                     date: transferDate,
                     comFrom: companyName?.nCompanyID,
-                    // comTo: 38,
+                    comTo: companyName?.nCompanyID,
                     floorFrom: fromFloor?.nFloor,
                     floorTo: toFloor?.nFloor,
                     lineFrom: fromLine?.line_Code,
@@ -103,6 +104,7 @@ const FixedAssetTransferInternalInput = () => {
             console.log(res)
             if (res) {
                 successToast(res?.data?.message)
+                setRefetchData(prev => prev + 1)
             }
         } catch (err) {
             console.log(err)

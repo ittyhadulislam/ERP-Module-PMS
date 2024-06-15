@@ -5,7 +5,7 @@ const FixedAssetTransferExternal = () => {
     return (
         <>
             <FixedAssetTransferExternalInput />
-            <FixedAssetTransferViewExternal />
+            {/* <FixedAssetTransferViewExternal /> */}
         </>
     );
 };

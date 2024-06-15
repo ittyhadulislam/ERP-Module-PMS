@@ -32,7 +32,7 @@ import ResetButton from '../buttons/ResetButton';
 
 
 const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = () => { } }) => {
-    console.log("Table Payload :", editsble);
+    // console.log("Table Payload :", editsble);
     const dispatch = useDispatch()
 
     const { user } = useSelector(state => state.auth)
@@ -68,6 +68,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
         commencingDate,
         inhouseDate,
         remarks } = useSelector(state => state.assetMaster)
+
+    // console.log(brand)
 
     // ----- Company -----
     const { data: companyData, isLoading: isCompanyLoading } = useGetCompanyQuery()
@@ -149,12 +151,12 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                     lineId: line?.line_Code,
                     purchaseDate: new Date(purchaseDate)?.toISOString(),
                     asstCateId: assetCategory?.acat_id.toString(),
-                    asstSpId: assetSpacialFeature?.asf_id.toString(),
+                    asstSpId: assetSpacialFeature?.asf_descrip.toString(),
                     asstStatusId: parseInt(assetStatus?.statusId),
                     asstNameId: assetName?.mcCode.toString(),
                     asstNo: assetNo,
                     serialNo: serialNumber,
-                    brandID: brand?.nBrand_ID.toString(),
+                    brandID: brand?.cBrand_Name.toString(),
                     model: model,
                     supplierId: supplier?.cSupCode,
                     asstValue: parseFloat(assetValue),
@@ -206,8 +208,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
             dispatch(setAssetMaster({ key: "supplier", value: { cSupName: editsble?.cSupName, cSupCode: editsble?.cSupCode } }))
             dispatch(setAssetMaster({ key: "assetValue", value: editsble?.mcAssetValue }))
             dispatch(setAssetMaster({ key: "currency", value: { cCurdes: editsble?.cCurdes, cCurID: editsble?.cCurID } }))
-            dispatch(setAssetMaster({ key: "depreciatedValue", value: editsble?.depValue }))
-            dispatch(setAssetMaster({ key: "depreciatedPeriod", value: editsble?.depPeriod }))
+            dispatch(setAssetMaster({ key: "depreciatedValue", value: editsble?.depreciatedValue }))
+            dispatch(setAssetMaster({ key: "depreciatedPeriod", value: editsble?.depreciatingPeriod }))
             dispatch(setAssetMaster({ key: "billNo", value: editsble?.mcBillOfEntryNo }))
             dispatch(setAssetMaster({ key: "billInputDate", value: formateDate(editsble?.mcBillOfEnDate) }))
             dispatch(setAssetMaster({ key: "lcNo", value: editsble?.mcLcNo }))
@@ -240,7 +242,7 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                     asstNameId: assetName ? assetName?.mcCode.toString() : "",
                     asstNo: assetNo,
                     serialNo: serialNumber ? serialNumber : "",
-                    brandID: brand?.nBrand_ID,
+                    brandID: brand?.cBrand_Name,
                     model: model ? model : "",
                     supplierId: supplier?.cSupCode,
                     asstValue: assetValue ? parseFloat(assetValue) : null,
@@ -254,7 +256,7 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                     comInvoiceNo: commercialInvoiceNo ? commercialInvoiceNo : "",
                     comInvoiceDate: commercialInvoiceDate ? commercialInvoiceDate : "",
                     warrantyExpDate: warrantyExpireDate ? warrantyExpireDate : null,
-                    currenHolder: company?.nCompanyID,
+                    currenHolder: currentHolder?.nCompanyID,
                     commencingDate: commencingDate ? commencingDate : null,
                     inhouseDate: inhouseDate ? inhouseDate : null,
                     remarks: remarks ?? "",
@@ -366,7 +368,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 // disableFuture={true}
                                 value={purchaseDate}
                                 setReduxState={setAssetMaster}
-                            // setData={setPurchaseDate}
+                                // setData={setPurchaseDate}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -379,7 +382,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 optionLabel={"acat_name"}
                                 value={assetCategory}
                                 setReduxState={setAssetMaster}
-                            // setSelectedValue={setAssetCategory}
+                                // setSelectedValue={setAssetCategory}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -392,7 +396,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 optionLabel={"asf_descrip"}
                                 value={assetSpacialFeature}
                                 setReduxState={setAssetMaster}
-                            // setSelectedValue={setAssetSpacialFeature}
+                                // setSelectedValue={setAssetSpacialFeature}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -405,7 +410,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 optionLabel={"statusName"}
                                 value={assetStatus}
                                 setReduxState={setAssetMaster}
-                            // setSelectedValue={setAssetStatus}
+                                // setSelectedValue={setAssetStatus}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -418,7 +424,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 optionLabel={"mcDesc"}
                                 value={assetName}
                                 setReduxState={setAssetMaster}
-                            // setSelectedValue={setAssetName}
+                                // setSelectedValue={setAssetName}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -438,7 +445,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 name='serialNumber'
                                 value={serialNumber}
                                 setReduxState={setAssetMaster}
-                            // setStateValue={setSerialNo}
+                                // setStateValue={setSerialNo}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -452,7 +460,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                     optionLabel={"cBrand_Name"}
                                     value={brand}
                                     setReduxState={setAssetMaster}
-                                // setSelectedValue={setBrand}
+                                    // setSelectedValue={setBrand}
+                                    required={true}
                                 />
                                 <p>{editsble?.mcMake}</p>
                             </Stack>
@@ -463,7 +472,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 name='model'
                                 value={model}
                                 setReduxState={setAssetMaster}
-                            // setStateValue={setModel}
+                                // setStateValue={setModel}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -476,7 +486,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 optionLabel={"cSupName"}
                                 value={supplier}
                                 setReduxState={setAssetMaster}
-                            // setSelectedValue={setSupplier}
+                                // setSelectedValue={setSupplier}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -486,7 +497,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 value={assetValue}
                                 setReduxState={setAssetMaster}
                                 type='number'
-                            // setStateValue={setAssetValue}
+                                // setStateValue={setAssetValue}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -499,7 +511,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 optionLabel={"cCurdes"}
                                 value={currency}
                                 setReduxState={setAssetMaster}
-                            // setSelectedValue={setCurrency}
+                                // setSelectedValue={setCurrency}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -509,7 +522,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 value={depreciatedValue}
                                 setReduxState={setAssetMaster}
                                 type='number'
-                            // setStateValue={setDepreciatedValue}
+                                // setStateValue={setDepreciatedValue}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -519,7 +533,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 value={depreciatedPeriod}
                                 setReduxState={setAssetMaster}
                                 type='number'
-                            // setStateValue={setDepreciatedPeriod}
+                                // setStateValue={setDepreciatedPeriod}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -528,7 +543,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 name='billNo'
                                 value={billNo}
                                 setReduxState={setAssetMaster}
-                            // setStateValue={setBillNo}
+                                // setStateValue={setBillNo}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -538,7 +554,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 // disableFuture={true}
                                 value={billInputDate}
                                 setReduxState={setAssetMaster}
-                            // setData={setBillInputDate}
+                                // setData={setBillInputDate}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -547,7 +564,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 name='lcNo'
                                 value={lcNo}
                                 setReduxState={setAssetMaster}
-                            // setStateValue={setLcNo}
+                                // setStateValue={setLcNo}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -557,7 +575,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 // disableFuture={true}
                                 value={lcDate}
                                 setReduxState={setAssetMaster}
-                            // setData={setLcDate}
+                                // setData={setLcDate}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -566,7 +585,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 name='commercialInvoiceNo'
                                 value={commercialInvoiceNo}
                                 setReduxState={setAssetMaster}
-                            // setStateValue={setCommercialInvoiceNo}
+                                // setStateValue={setCommercialInvoiceNo}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -576,7 +596,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 // disableFuture={true}
                                 value={commercialInvoiceDate}
                                 setReduxState={setAssetMaster}
-                            // setData={setCommercialInvoiceDate}
+                                // setData={setCommercialInvoiceDate}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -586,7 +607,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 // disableFuture={true}
                                 value={formateDate(warrantyExpireDate)}
                                 setReduxState={setAssetMaster}
-                            // setData={setWarrantyExpireDate}
+                                // setData={setWarrantyExpireDate}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -599,7 +621,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 optionLabel={"cCmpName"}
                                 value={currentHolder}
                                 setReduxState={setAssetMaster}
-                            // setSelectedValue={setCurrenHolder}
+                                // setSelectedValue={setCurrenHolder}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -609,7 +632,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 // disableFuture={true}
                                 value={commencingDate}
                                 setReduxState={setAssetMaster}
-                            // setData={setCommencingDate}
+                                // setData={setCommencingDate}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -619,7 +643,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 // disableFuture={true}
                                 value={inhouseDate}
                                 setReduxState={setAssetMaster}
-                            // setData={setInhouseDate}
+                                // setData={setInhouseDate}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -629,7 +654,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 multiline
                                 value={remarks}
                                 setReduxState={setAssetMaster}
-                            // setStateValue={setRemarks}
+                                // setStateValue={setRemarks}
+                                required={true}
                             />
                         </Grid>
                     </Grid>

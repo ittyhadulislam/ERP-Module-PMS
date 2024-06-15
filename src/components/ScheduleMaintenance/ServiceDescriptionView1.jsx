@@ -1,17 +1,24 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react';
 import CustomAppBar from '../common/CustomAppBar';
 import CustomTable from '../table/CustomTable';
 import { Box } from '@mui/material';
+import { useGetServiceTypeQuery } from '../../redux/features/assetManagement/ScheduleMaintenance/queryScheduleMaintenance';
 
-const ServiceDescriptionView1 = () => {
+const ServiceDescriptionView1 = ({ setGetServiceType, isSuccess }) => {
+    const [selectedRow, setSelectedRow] = useState([])
+
+    useEffect(() => {
+        setGetServiceType(selectedRow)
+    }, [selectedRow])
+
+    useEffect(() => {
+        setSelectedRow([])
+    }, [isSuccess])
+
+    const { data, isLoading } = useGetServiceTypeQuery()
+
     const column = [
-        {
-            field: "Select",
-            headerName: "Select",
-            flex: 1,
-            minWidth: 60,
-            maxWidth: 60,
-        },
         {
             field: "id",
             headerName: "ID",
@@ -20,11 +27,9 @@ const ServiceDescriptionView1 = () => {
             maxWidth: 80,
         },
         {
-            field: "Service Type",
+            field: "ser_service_type",
             headerName: "Service Type",
             flex: 1,
-            minWidth: 140,
-            maxWidth: 140,
         },
     ]
     return (
@@ -32,10 +37,15 @@ const ServiceDescriptionView1 = () => {
             <CustomAppBar title={"Service Description"} />
             <CustomTable
                 columns={column}
-                rows={[]}
+                rows={data?.map((row, id) => ({ ...row, id: id + 1 }))}
                 toolBar={false}
+                checkboxSelection
+                setSelectedRows={setSelectedRow}
                 // search={true}
                 hideFooter={true}
+                loading={isLoading}
+                isSuccess={isSuccess}
+            // height={data?.length ? "auto" : "280px"}
             />
         </Box>
     );

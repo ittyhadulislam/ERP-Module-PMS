@@ -19,74 +19,69 @@ const FixedAssetTransferViewExternal = () => {
 
     const columns = [
         {
-            field: "action",
-            headerName: "Select",
-            flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
-        },
-        {
             field: "iet_asset_no",
             headerName: "Asset No #",
             flex: 1,
-            minWidth: 200,
-            maxWidth: 200,
+            // minWidth: 200,
+            // maxWidth: 200,
         },
         {
             field: "fromCom",
             headerName: "From Company",
             flex: 1,
-            minWidth: 250,
-            maxWidth: 250,
+            // minWidth: 250,
+            // maxWidth: 250,
         },
         {
             field: "toCom",
             headerName: "To Company",
             flex: 1,
-            minWidth: 250,
-            maxWidth: 250,
+            // minWidth: 250,
+            // maxWidth: 250,
         },
         {
             field: "iet_date",
             headerName: "Transfer Date",
             flex: 1,
-            minWidth: 200,
-            maxWidth: 200,
+            // minWidth: 200,
+            // maxWidth: 200,
         },
         {
             field: "iet_approve",
             headerName: "Is Approved",
             flex: 1,
-            minWidth: 200,
-            maxWidth: 200,
+            // minWidth: 200,
+            // maxWidth: 200,
         },
         {
             field: "iet_input_user",
             headerName: "Input User",
             flex: 1,
-            minWidth: 200,
-            maxWidth: 200,
+            // minWidth: 200,
+            // maxWidth: 200,
         },
         {
             field: "iet_input_date",
             headerName: "Input Date",
             flex: 1,
-            minWidth: 200,
-            maxWidth: 200,
+            // minWidth: 200,
+            // maxWidth: 200,
         },
 
         {
             field: "iet_remarks",
             headerName: "Remarks",
             flex: 1,
-            minWidth: 200,
-            maxWidth: 200,
+            // minWidth: 200,
+            // maxWidth: 200,
         },
     ]
     return (
         <CustomTable
             columns={columns}
             rows={viewData?.map((row, id) => ({ ...row, id }))}
+            checkboxSelection
+            setSelectedRows={{}}
             loading={isViewLoading}
             height={viewData?.length ? "auto" : "280px"}
         />

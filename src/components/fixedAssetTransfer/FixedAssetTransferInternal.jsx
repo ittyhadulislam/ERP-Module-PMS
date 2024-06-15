@@ -1,11 +1,14 @@
 import FixedAssetTransferViewInternal from './internalTransfer/FixedAssetTransferViewInternal';
 import FixedAssetTransferInternalInput from './internalTransfer/FixedAssetTransferInternalInput';
+import { useState } from 'react';
 
 const FixedAssetTransferInternal = () => {
+    const [refetchData, setRefetchData] = useState(0)
+
     return (
         <>
-            <FixedAssetTransferInternalInput />
-            <FixedAssetTransferViewInternal />
+            <FixedAssetTransferInternalInput setRefetchData={setRefetchData} />
+            {/* <FixedAssetTransferViewInternal refetchData={refetchData} /> */}
         </>
     );
 };

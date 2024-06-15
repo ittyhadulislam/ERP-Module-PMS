@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomAppBar from '../common/CustomAppBar';
 import CustomTable from '../table/CustomTable';
 import { Box, Stack } from '@mui/material';
@@ -13,10 +13,12 @@ import { successToast } from '../../common/toaster/toaster';
 
 const InternalForApprovalView = () => {
     const [selectedRow, setSelected] = useState([])
-    console.log(selectedRow)
+    const [filterData, setFilterData] = useState([])
     const navigate = useNavigate()
     const { user } = useSelector(state => state.auth)
-    // console.log(user?.userName)
+
+    // console.log(selectedRow)
+
     // get and show data
     const { data, isLoading, refetch } = useGetInternalTransferDetailsForApprovalQuery({
         comID: user?.companyID,
@@ -29,7 +31,8 @@ const InternalForApprovalView = () => {
     const handelApprove = async () => {
         try {
             const payload = selectedRow?.map(item => ({
-                refNo: item?.id,
+                // refNo: "0",
+                assetNo: item?.iet_asset_no,
                 approval_by: user?.userName
             }))
             // console.log(payload);
@@ -43,11 +46,19 @@ const InternalForApprovalView = () => {
         }
     }
 
+    useEffect(() => {
+        if (data?.length > 0) {
+            setFilterData(data?.filter(item => item?.iet_approve === false))
+        }
+    }, [data])
+
+
     // redirect to fixed asset transfer
     const handelReturn = () => {
         navigate("/fixed-asset-transfer")
     }
 
+    // const fd = data?.filter(item => item?.iet_approve === false)
 
     const column = [
         {
@@ -108,16 +119,18 @@ const InternalForApprovalView = () => {
         },
     ]
 
+
     return (
         <Box sx={{ p: 1, border: "1px dashed grey" }}>
             <CustomAppBar title={"Rented Asset Return Details"} />
             <CustomTable
                 columns={column}
-                rows={data?.map((row, id) => ({ ...row, id }))}
+                // rows={data?.map((row, id) => ({ ...row, id }))}
+                rows={filterData?.map((row, id) => ({ ...row, id }))}
                 checkboxSelection
                 setSelectedRows={setSelected}
                 loading={isLoading}
-                height={data?.length ? "auto" : "280px"}
+                height={filterData?.length ? "auto" : "300px"}
             />
             <Box sx={{ my: 1, mb: 0, border: "1px dashed grey", mr: "1px" }}>
                 <Stack
@@ -142,6 +155,7 @@ const InternalForApprovalView = () => {
                             title={"Approve"}
                             type='submit'
                             handleClick={handelApprove}
+                            disabled={selectedRow.length > 0 ? false : true}
                         />
                     </Box>
                 </Stack>
