@@ -4,17 +4,18 @@ import CustomAppBar from '../../common/CustomAppBar';
 import CustomDatePicker from '../../inputs/CustomDatePicker';
 import CustomAutocomplete from '../../inputs/CustomAutocomplete';
 import CustomTextInput from '../../inputs/CustomTextInput';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetCompanyForFixedAssetTransferQuery, useLazyGetAssetNoForFixedAssetTransferExternalQuery } from '../../../redux/features/assetManagement/fixedAssetTransfer/queryFixedAssetTransfer';
-import { setFixedAssetTransfer } from '../../../redux/features/assetManagement/fixedAssetTransfer/fixedAssetTransferSlice';
+import { setFixedAssetTransfer, setResetFixedAssetTransferExternal } from '../../../redux/features/assetManagement/fixedAssetTransfer/fixedAssetTransferSlice';
 import { useSaveFixedAssetTransferExternalMutation } from '../../../redux/features/assetManagement/fixedAssetTransfer/mutationFixedAssetTransfer';
 import ReturnButton from '../../buttons/ReturnButton';
 import SubmitButton from '../../buttons/SubmitButton';
 import { successToast } from '../../../common/toaster/toaster';
+import CustomMultiAutocomplete from '../../inputs/CustomMultiAutocomplete';
 
 const FixedAssetTransferExternalInput = () => {
     const { user } = useSelector(state => state.auth)
-
+    const dispatch = useDispatch()
     const {
         fromCompany,
         toCompany,
@@ -22,6 +23,8 @@ const FixedAssetTransferExternalInput = () => {
         transferDate,
         remarks,
     } = useSelector(state => state.fixedAssetMaster)
+
+    // console.log(assetNo)
 
     // ----- company name -----
 
@@ -43,26 +46,33 @@ const FixedAssetTransferExternalInput = () => {
     const handelSubmit = async (e) => {
         e.preventDefault()
         try {
-            const payload = [
-                {
-                    date: transferDate,
-                    comFrom: fromCompany?.nCompanyID,
-                    comTo: toCompany?.nCompanyID,
-                    // floorFrom: 56,
-                    // floorTo: 90,
-                    // lineFrom: 98,
-                    // lineTo: 79,
-                    assetNo: assetNo?.mcAsstNo,
-                    status: "Ex",
-                    remarks: remarks,
-                    inputUser: user?.userName,
-                }
-            ]
-            // console.log(payload)
+            // const payload = [
+            //     {
+            //         date: transferDate,
+            //         comFrom: fromCompany?.nCompanyID,
+            //         comTo: toCompany?.nCompanyID,
+            //         assetNo: assetNo?.mcAsstNo,
+            //         status: "Ex",
+            //         remarks: remarks,
+            //         inputUser: user?.userName,
+            //     }
+            // ]
+            const payload = assetNo?.map(singleAssetNo => ({
+                date: transferDate,
+                comFrom: fromCompany?.nCompanyID,
+                comTo: toCompany?.nCompanyID,
+                // assetNo: assetNo?.mcAsstNo,
+                assetNo: singleAssetNo?.mcAsstNo,
+                status: "Ex",
+                remarks: remarks,
+                inputUser: user?.userName,
+            }))
+            console.log(payload)
             const res = await passExternalData(payload)
             console.log(res)
             if (res) {
                 successToast(res?.data?.message)
+                dispatch(setResetFixedAssetTransferExternal())
             }
         } catch (error) {
             console.log(error)
@@ -75,15 +85,16 @@ const FixedAssetTransferExternalInput = () => {
                     <CustomAppBar title={"From"} />
                     <Box sx={{ p: 1, border: "1px dashed grey", borderTop: "none" }}>
                         <Grid container spacing={1} mt={"1px"}>
-                            <Grid item xs={12} sm={6} md={4}>
+                            <Grid item xs={12} sm={6} md={6}>
                                 <CustomDatePicker
                                     label={"Transfer Date"}
                                     name='transferDate'
                                     value={transferDate}
                                     setReduxState={setFixedAssetTransfer}
+                                    required={true}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6} md={4}>
+                            <Grid item xs={12} sm={6} md={6}>
                                 <CustomAutocomplete
                                     label={"Company"}
                                     name={"fromCompany"}
@@ -93,18 +104,20 @@ const FixedAssetTransferExternalInput = () => {
                                     value={fromCompany}
                                     setReduxState={setFixedAssetTransfer}
                                     loading={isAssetNoLoading}
+                                    required={true}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6} md={4}>
-                                <CustomAutocomplete
+                            <Grid item xs={12} sm={6} md={12}>
+                                <CustomMultiAutocomplete
                                     label={"Asset No#"}
                                     name={"assetNo"}
                                     options={fromCompany ? getAssetNo?.result ?? [] : []}
-                                    // optionId={"nCompanyID"}
                                     optionLabel={"mcAsstNo"}
+                                    optionId={"nCompanyID"}
                                     value={assetNo}
                                     setReduxState={setFixedAssetTransfer}
                                     loading={isCompanyLoading}
+                                    required={true}
                                 />
                             </Grid>
                         </Grid>
@@ -114,7 +127,7 @@ const FixedAssetTransferExternalInput = () => {
                     <CustomAppBar title={"To"} />
                     <Box sx={{ p: 1, border: "1px dashed grey", borderTop: "none" }}>
                         <Grid container spacing={1} mt={"1px"}>
-                            <Grid item xs={12} sm={6} md={6}>
+                            <Grid item xs={12} sm={6} md={12}>
                                 <CustomAutocomplete
                                     label={"Company"}
                                     name={"toCompany"}
@@ -124,15 +137,17 @@ const FixedAssetTransferExternalInput = () => {
                                     value={toCompany}
                                     setReduxState={setFixedAssetTransfer}
                                     loading={isCompanyLoading}
+                                    required={true}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6} md={6}>
+                            <Grid item xs={12} sm={6} md={12}>
                                 <CustomTextInput
                                     label={"Remarks"}
                                     name='remarks'
                                     value={remarks}
                                     setReduxState={setFixedAssetTransfer}
                                     multiline={true}
+                                    required={true}
                                 />
                             </Grid>
                         </Grid>

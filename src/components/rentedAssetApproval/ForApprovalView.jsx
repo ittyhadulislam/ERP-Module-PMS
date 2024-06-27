@@ -8,7 +8,8 @@ import SubmitButton from '../buttons/SubmitButton';
 import ErrorButton from '../buttons/ErrorButton';
 import { useDeleteForApprovalMutation, useUpdateForApprovalMutation } from '../../redux/features/assetManagement/rentedAssetApproval/mutetionRentedAssetApproval';
 import { useNavigate } from 'react-router-dom';
-import { errorToast } from '../../common/toaster/toaster';
+import { errorToast, successToast, warningToast } from '../../common/toaster/toaster';
+import dayjs from 'dayjs';
 
 const ForApprovalView = () => {
     const [selectedRow, setSelectedRow] = useState([])
@@ -35,8 +36,12 @@ const ForApprovalView = () => {
             }))
             const res = passValueForApproval(payload)
             if (res) {
+                successToast("Approved successfully")
                 refetch()
             }
+            // else {
+            //     errorToast("Something went wrong")
+            // }
         } catch (error) {
             console.log(error)
         }
@@ -52,7 +57,7 @@ const ForApprovalView = () => {
             }
             const response = deleteTableData(payload)
             if (response) {
-                errorToast("Row Delete Successfully")
+                warningToast("Row Delete Successfully")
                 refetch()
             }
         } catch (error) {
@@ -69,64 +74,73 @@ const ForApprovalView = () => {
             field: "rentAssetNo",
             headerName: "AssetNo",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            minWidth: 90,
+            maxWidth: 90,
         },
         {
             field: "mcDesc",
             headerName: "Machine Name",
             flex: 1,
-            minWidth: 230,
-            maxWidth: 230,
+            minWidth: 200,
+            maxWidth: 200,
         },
         {
             field: "cCmpName",
             headerName: "Company Name",
             flex: 1,
-            minWidth: 250,
-            maxWidth: 250,
+            minWidth: 200,
+            maxWidth: 200,
         },
         {
             field: "nFloor",
             headerName: "Floor",
             flex: 1,
-            minWidth: 130,
-            maxWidth: 130,
+            // minWidth: 130,
+            // maxWidth: 130,
         },
         {
             field: "line_No",
             headerName: "Line",
             flex: 1,
-            minWidth: 120,
-            maxWidth: 120,
+            // minWidth: 120,
+            // maxWidth: 120,
         },
         {
             field: "rentDate",
             headerName: "Rent Date",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "returnDate",
             headerName: "Return Date",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "cUserFullname",
             headerName: "Created By",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
         },
         {
             field: "returnInputDate",
             headerName: "Created Date",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
     ]
 

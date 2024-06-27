@@ -9,6 +9,7 @@ import SubmitButton from '../buttons/SubmitButton';
 import ResetButton from './../buttons/ResetButton'
 import { useUpdateDataInTable1ForRentedAssetReturnAddMutation } from '../../redux/features/assetManagement/rentedAssetReturn/mutationRentedAssetReturn';
 import { successToast } from './../../common/toaster/toaster';
+import dayjs from 'dayjs';
 
 const RentedAssetReturnView = ({ setAutoUpdate = () => { } }) => {
 
@@ -59,64 +60,70 @@ const RentedAssetReturnView = ({ setAutoUpdate = () => { } }) => {
             field: "rentAssetNo",
             headerName: "AssetNo",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            minWidth: 90,
+            maxWidth: 90,
         },
         {
             field: "mcDesc",
             headerName: "Machine Name",
             flex: 1,
-            minWidth: 230,
-            maxWidth: 230,
+            minWidth: 200,
+            maxWidth: 200,
         },
         {
             field: "cCmpName",
             headerName: "Company Name",
             flex: 1,
-            minWidth: 250,
-            maxWidth: 250,
+            minWidth: 200,
+            maxWidth: 200,
         },
         {
             field: "cFloor_Descriptin",
             headerName: "Floor",
             flex: 1,
-            minWidth: 130,
-            maxWidth: 130,
+            // minWidth: 130,
+            // maxWidth: 130,
         },
         {
             field: "line_No",
             headerName: "Line",
             flex: 1,
-            minWidth: 120,
-            maxWidth: 120,
+            // minWidth: 120,
+            // maxWidth: 120,
         },
         {
             field: "rentDate",
             headerName: "Rent Date",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "returnDate",
             headerName: "Return Date",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "inputUser",
             headerName: "Input User",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
         },
         {
             field: "inputDate",
             headerName: "Input Date",
             flex: 1,
-            minWidth: 162,
-            maxWidth: 162,
+            // minWidth: 162,
+            // maxWidth: 162,
         },
     ]
 

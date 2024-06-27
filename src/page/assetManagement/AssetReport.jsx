@@ -5,11 +5,26 @@ import SelectReport from '../../components/common/SelectReport';
 import CustomAutocomplete from '../../components/inputs/CustomAutocomplete';
 import CustomDatePicker from '../../components/inputs/CustomDatePicker';
 import ReportButton from './../../components/buttons/ReportButton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetAssetCategoryQuery, useGetAssetStatusQuery, useGetCompanyQuery, useLazyGetFloorQuery, useLazyGetLineQuery } from '../../redux/features/assetManagement/assetMaster/queryAssetMaster';
-import { setAssetReport } from '../../redux/features/assetManagement/assetReport/assetReportSlice';
+import {
+    setAssetReport,
+    setResetReport,
+    setResetReportForExternal
+} from '../../redux/features/assetManagement/assetReport/assetReportSlice';
 import ReportViewer from '../../components/report/ReportViewer';
-import { useLazyGetAssetDetailsMasterReportQuery, useLazyGetAssetDetailsSummaryReportQuery, useLazyGetAssetInformationDetailsReportQuery, useLazyGetAssetManagementReportQuery, useLazyGetAssetRunningRepairReportQuery, useLazyGetAssetSummaryReportQuery, useLazyGetExternalTransferReportQuery, useLazyGetInternalTransferReportQuery, useLazyGetRentedAssetDetailsReportQuery } from '../../redux/features/assetManagement/assetReport/queryAssetReport';
+import {
+    useLazyGetAssetDetailsMasterReportQuery,
+    useLazyGetAssetDetailsSummaryReportQuery,
+    useLazyGetAssetInformationDetailsReportQuery,
+    useLazyGetAssetManagementReportQuery,
+    useLazyGetAssetRunningRepairReportQuery,
+    useLazyGetAssetSummaryReportQuery,
+    useLazyGetExternalTransferReportQuery,
+    useLazyGetInternalTransferReportQuery,
+    useLazyGetRentedAssetDetailsReportQuery,
+    useLazyGetScheduleMaintenanceReportQuery,
+} from '../../redux/features/assetManagement/assetReport/queryAssetReport';
 import { errorToast, infoToast } from '../../common/toaster/toaster';
 
 const AssetReport = () => {
@@ -17,6 +32,8 @@ const AssetReport = () => {
     const [reportView, setReportView] = useState(null)
     const [modalOpen, setModalOpen] = useState(false);
     console.log(reportTitle)
+
+    const dispatch = useDispatch()
 
     const { user } = useSelector(state => state.auth)
     const {
@@ -98,26 +115,6 @@ const AssetReport = () => {
     }, [assetInfoDetailsReportError, assetInfoDetailsReportSuccess, assetInfoDetailsReportData])
 
     // === Asset Daily Summary Report ===
-    // const [
-    //     passValueForAssetDetailsSummary,
-    //     {
-    //         data: assetDetailsSummaryData,
-    //         isFetching: detailsSummaryFetching,
-    //         isError: detailsSummaryError,
-    //         isSuccess: detailsSummarySuccess
-    //     }
-    // ] = useLazyGetAssetDetailsSummaryReportQuery()
-
-    // useEffect(() => {
-    //     if (detailsSummaryError) {
-    //         setModalOpen(false)
-    //         errorToast("Something Went Wrong")
-    //     }
-    //     if (detailsSummarySuccess && assetDetailsSummaryData) {
-    //         setModalOpen(true)
-    //         setReportView(assetDetailsSummaryData)
-    //     }
-    // }, [detailsSummaryError, detailsSummarySuccess, assetDetailsSummaryData])
     const [
         passValueForAssetDetailsSummaryReport,
         {
@@ -270,7 +267,60 @@ const AssetReport = () => {
         }
     }, [assetManagementDetailMasterData, assetManagementDetailMasterSuccess, assetManagementDetailMastersError])
 
+    // === ScheduleMaintenance ===
+    const [
+        passValueForScheduleMaintenanceReport,
+        {
+            data: scheduleMaintenanceData,
+            isFetching: scheduleMaintenanceFetching,
+            isError: scheduleMaintenancesError,
+            isSuccess: scheduleMaintenanceSuccess
+        }
+    ] = useLazyGetScheduleMaintenanceReportQuery()
 
+    useEffect(() => {
+        if (scheduleMaintenancesError) {
+            setModalOpen(false)
+            errorToast("Something Went Wrong")
+        }
+        if (scheduleMaintenanceSuccess && scheduleMaintenanceData) {
+            setModalOpen(true)
+            setReportView(scheduleMaintenanceData)
+        }
+    }, [scheduleMaintenanceData, scheduleMaintenanceSuccess, scheduleMaintenancesError])
+
+    useEffect(() => {
+        if (reportTitle === "Asset Detail Summary Report") {
+            dispatch(setResetReport())
+        }
+        else if (reportTitle === "Asset Information Details") {
+            dispatch(setResetReport())
+        }
+        else if (reportTitle === "Asset Management Report") {
+            dispatch(setResetReport())
+        }
+        else if (reportTitle === "Asset Summary Report") {
+            dispatch(setResetReport())
+        }
+        else if (reportTitle === "Running Repair Report") {
+            dispatch(setResetReport())
+        }
+        else if (reportTitle === "Internal Fixed Asset Transfer Report") {
+            dispatch(setResetReport())
+        }
+        else if (reportTitle === "External Fixed Asset Transfer Report") {
+            dispatch(setResetReportForExternal())
+        }
+        else if (reportTitle === "Rented Asset Details Report") {
+            dispatch(setResetReport())
+        }
+        else if (reportTitle === "Asset Management Detail Master Report") {
+            dispatch(setResetReport())
+        }
+        else if (reportTitle === "Scheduled Maintenance Report") {
+            dispatch(setResetReport())
+        }
+    }, [reportTitle])
 
     // ========== handel button ==========
 
@@ -283,8 +333,9 @@ const AssetReport = () => {
                     userName: user?.userName
                 }
             )
+
         }
-        if (reportTitle === "Asset Information Details") {
+        else if (reportTitle === "Asset Information Details") {
             passValueForAssetInformationDetailsReport(
                 {
                     comID: company?.nCompanyID,
@@ -346,6 +397,12 @@ const AssetReport = () => {
                     userName: user?.userName
                 }
             )
+        }
+        else if (reportTitle === "Scheduled Maintenance Report") {
+            passValueForScheduleMaintenanceReport({
+                comID: company?.nCompanyID,
+                userName: user?.userName
+            })
         }
         else {
             infoToast("Please Select a Report");
@@ -551,7 +608,8 @@ const AssetReport = () => {
                                             internalTransferFetching ||
                                             externalTransferFetching ||
                                             rentedAssetDetailsFetching ||
-                                            assetManagementDetailMasterFetching
+                                            assetManagementDetailMasterFetching ||
+                                            scheduleMaintenanceFetching
                                         }
                                         disabled={reportTitle === ""}
                                     />

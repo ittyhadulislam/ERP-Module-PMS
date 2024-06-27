@@ -9,6 +9,7 @@ import { RxCross1 } from "react-icons/rx";
 import { MdDeleteForever, MdOutlineDelete } from "react-icons/md";
 import { useDeleteRunningRepairMutation } from '../../redux/features/assetManagement/runningRepair/mutationRunningRepair';
 import { LoadingButton } from '@mui/lab';
+import dayjs from 'dayjs';
 
 
 const RunningRepairView = ({
@@ -42,15 +43,21 @@ const RunningRepairView = ({
             field: "mr_next_service_date",
             headerName: "Next Service Date",
             flex: 1,
-            minWidth: 130,
-            maxWidth: 130,
+            // minWidth: 130,
+            // maxWidth: 130,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "mr_last_service_date",
             headerName: "Last Service Date",
             flex: 1,
-            minWidth: 130,
-            maxWidth: 130,
+            // minWidth: 130,
+            // maxWidth: 130,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "mr_repair_date",
@@ -58,69 +65,81 @@ const RunningRepairView = ({
             flex: 1,
             minWidth: 130,
             maxWidth: 130,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "mr_repair_details",
             headerName: "Repair Details",
             flex: 1,
-            minWidth: 120,
-            maxWidth: 120,
+            // minWidth: 120,
+            // maxWidth: 120,
         },
         {
             field: "mr_item_replace",
             headerName: "Item Replace",
             flex: 1,
-            minWidth: 100,
-            maxWidth: 100,
+            // minWidth: 100,
+            // maxWidth: 100,
         },
         {
             field: "mr_down_time",
             headerName: "Down Time",
             flex: 1,
-            minWidth: 90,
-            maxWidth: 90,
+            // minWidth: 90,
+            // maxWidth: 90,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "mr_attended_time",
             headerName: "Attendent Time",
             flex: 1,
-            minWidth: 100,
-            maxWidth: 100,
+            // minWidth: 100,
+            // maxWidth: 100,
         },
         {
             field: "mr_ready_date",
             headerName: "Ready Date",
             flex: 1,
-            minWidth: 130,
-            maxWidth: 130,
+            // minWidth: 130,
+            // maxWidth: 130,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "mr_done_by",
             headerName: "Done By",
             flex: 1,
-            minWidth: 160,
-            maxWidth: 160,
+            // minWidth: 160,
+            // maxWidth: 160,
         },
         {
             field: "mr_input_by",
             headerName: "Created By",
             flex: 1,
-            minWidth: 154,
-            maxWidth: 154,
+            // minWidth: 154,
+            // maxWidth: 154,
         },
         {
             field: "mr_input_date",
             headerName: "Created Date",
             flex: 1,
-            minWidth: 160,
-            maxWidth: 160,
+            // minWidth: 160,
+            // maxWidth: 160,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "Delete",
             headerName: "Delete",
             flex: 1,
-            minWidth: 90,
-            maxWidth: 90,
+            // minWidth: 90,
+            // maxWidth: 90,
             headerAlign: "center",
             align: "center",
             renderCell: (row) => {

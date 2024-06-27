@@ -75,8 +75,6 @@ export const getLineFixedAssetTransfer = `${assetManagement_base_url}/Asset_Tran
 export const getInternalAssetNoFixedAssetTransfer = `${assetManagement_base_url}/Asset_Transfer/IGet_Asst_No`
 export const getExternalAssetNoFixedAssetTransfer = `${assetManagement_base_url}/Asset_Transfer/EGet_Asst_No`
 
-export const getViewListInternalFixedAssetTransfer = `${assetManagement_base_url}/Asset_Transfer/GetInternalTransferView`
-export const getViewListExternalFixedAssetTransfer = `${assetManagement_base_url}/Asset_Transfer/GetExternalTransferView`
 
 // ----- Post -----
 export const saveAssetMasterInternal = `${assetManagement_base_url}/Asset_Transfer/Internal_Transfer_Save`
@@ -87,11 +85,12 @@ export const saveAssetMasterExternal = `${assetManagement_base_url}/Asset_Transf
 export const getDataForInternalTransfer = `${assetManagement_base_url}/Asset_Transfer/GetInternalTransferAddView`
 export const getDataForExternalTransfer = `${assetManagement_base_url}/Asset_Transfer/GetExternalTransferAddView`
 export const getDataFixedAssetTransferApprovalForApproved = `${assetManagement_base_url}/Asset_Transfer/GetTransferView`
+export const getViewListExternalFixedAssetTransfer = `${assetManagement_base_url}/Asset_Transfer/GetExternalTransferView`
+export const getViewListInternalFixedAssetTransfer = `${assetManagement_base_url}/Asset_Transfer/GetInternalTransferView`
 
 // ----- Update -----
 export const updateInternalApproval = `${assetManagement_base_url}/Asset_Transfer/Asset_InternalTransfer_Approval`
 export const updateExternalApproval = `${assetManagement_base_url}/Asset_Transfer/Asset_ExternalTransfer_Approval`
-
 
 // ===================================== Running Repair ==================================
 
@@ -122,5 +121,6 @@ export const getInternalReport = `${assetManagement_base_url}/AssetReport/Intern
 export const getExternalReport = `${assetManagement_base_url}/AssetReport/ExternalFixedAssetTransferReport` //d
 export const getRentedAssetReport = `${assetManagement_base_url}/AssetReport/RentedAssetDetailsReport` //d
 export const getAssetSummaryReport = `${assetManagement_base_url}/AssetReport/AssetSummaryReport` //d
+export const getScheduleMaintenanceReport = `${assetManagement_base_url}/AssetReport/ScheduledMaintenanceReport`
 
 // console.log(getLineFixedAssetTransfer)

@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react';
 import CustomTable from '../../table/CustomTable';
 import { useSelector } from 'react-redux';
-import { useLazyGetViewListExternalQuery } from '../../../redux/features/assetManagement/fixedAssetTransfer/queryFixedAssetTransfer';
+// import { useLazyGetViewListExternalQuery } from '../../../redux/features/assetManagement/fixedAssetTransfer/queryFixedAssetTransfer';
 
 const FixedAssetTransferViewExternal = () => {
     const { fromCompany } = useSelector(state => state.fixedAssetMaster)
     // console.log(fromCompany);
 
-    const [setComIdForViewInTable, { data: viewData, isLoading: isViewLoading }] = useLazyGetViewListExternalQuery()
-    console.log(viewData)
-    useEffect(() => {
-        const payload = {
-            comID: fromCompany?.nCompanyID
-        }
-        // console.log(payload)
-        setComIdForViewInTable(payload)
-    }, [fromCompany])
+    // const [setComIdForViewInTable, { data: viewData, isLoading: isViewLoading }] = useLazyGetViewListExternalQuery()
+    // // console.log(viewData)
+    // useEffect(() => {
+    //     const payload = {
+    //         comID: fromCompany?.nCompanyID
+    //     }
+    //     // console.log(payload)
+    //     setComIdForViewInTable(payload)
+    // }, [fromCompany])
 
     const columns = [
         {
@@ -77,14 +77,15 @@ const FixedAssetTransferViewExternal = () => {
         },
     ]
     return (
-        <CustomTable
-            columns={columns}
-            rows={viewData?.map((row, id) => ({ ...row, id }))}
-            checkboxSelection
-            setSelectedRows={{}}
-            loading={isViewLoading}
-            height={viewData?.length ? "auto" : "280px"}
-        />
+        <></>
+        // <CustomTable
+        //     columns={columns}
+        //     rows={viewData?.map((row, id) => ({ ...row, id }))}
+        //     checkboxSelection
+        //     setSelectedRows={{}}
+        //     loading={isViewLoading}
+        //     height={viewData?.length ? "auto" : "280px"}
+        // />
     );
 };
 

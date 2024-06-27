@@ -23,8 +23,8 @@ const ServiceDescriptionView1 = ({ setGetServiceType, isSuccess }) => {
             field: "id",
             headerName: "ID",
             flex: 1,
-            minWidth: 80,
-            maxWidth: 80,
+            minWidth: 50,
+            maxWidth: 50,
         },
         {
             field: "ser_service_type",

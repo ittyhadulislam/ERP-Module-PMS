@@ -10,6 +10,7 @@ import { useGetInternalTransferDetailsForApprovalQuery } from '../../redux/featu
 import { useNavigate } from 'react-router-dom';
 import { useUpdateInternalTransferApprovalMutation } from '../../redux/features/assetManagement/fixedAssetTransferApproval/mutationFixedAssetTransferApproval';
 import { successToast } from '../../common/toaster/toaster';
+import dayjs from 'dayjs';
 
 const InternalForApprovalView = () => {
     const [selectedRow, setSelected] = useState([])
@@ -17,7 +18,7 @@ const InternalForApprovalView = () => {
     const navigate = useNavigate()
     const { user } = useSelector(state => state.auth)
 
-    // console.log(selectedRow)
+    console.log("Internal Selected : ", selectedRow)
 
     // get and show data
     const { data, isLoading, refetch } = useGetInternalTransferDetailsForApprovalQuery({
@@ -31,8 +32,8 @@ const InternalForApprovalView = () => {
     const handelApprove = async () => {
         try {
             const payload = selectedRow?.map(item => ({
-                // refNo: "0",
-                assetNo: item?.iet_asset_no,
+                RefNo: item?.iet_ref_no,
+                // assetNo: item?.iet_asset_no,
                 approval_by: user?.userName
             }))
             // console.log(payload);
@@ -62,60 +63,66 @@ const InternalForApprovalView = () => {
 
     const column = [
         {
-            field: "iet_id",
+            field: "iet_ref_no",
             headerName: "Ref No",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            minWidth: 90,
+            maxWidth: 90,
         },
-        {
-            field: "iet_asset_no",
-            headerName: "Asset No#",
-            flex: 1,
-            minWidth: 230,
-            maxWidth: 230,
-        },
+        // {
+        //     field: "iet_asset_no",
+        //     headerName: "Asset No#",
+        //     flex: 1,
+        //     minWidth: 90,
+        //     maxWidth: 90,
+        // },
         {
             field: "fromCom",
             headerName: "From Company",
             flex: 1,
-            minWidth: 250,
-            maxWidth: 250,
+            minWidth: 200,
+            maxWidth: 200,
         },
         {
             field: "toCom",
             headerName: "To Company",
             flex: 1,
-            minWidth: 130,
-            maxWidth: 130,
+            minWidth: 200,
+            maxWidth: 200,
         },
-        {
-            field: "iet_remarks",
-            headerName: "Remarks",
-            flex: 1,
-            minWidth: 130,
-            maxWidth: 130,
-        },
+        // {
+        //     field: "iet_remarks",
+        //     headerName: "Remarks",
+        //     flex: 1,
+        //     // minWidth: 130,
+        //     // maxWidth: 130,
+        // },
         {
             field: "iet_date",
             headerName: "Transfer Date",
             flex: 1,
-            minWidth: 120,
-            maxWidth: 120,
+            // minWidth: 120,
+            // maxWidth: 120,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "iet_input_user",
             headerName: "Created By",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
         },
         {
             field: "iet_input_date",
             headerName: "Created Date",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
     ]
 

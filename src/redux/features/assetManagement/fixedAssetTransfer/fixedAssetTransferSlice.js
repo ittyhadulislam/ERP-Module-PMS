@@ -21,9 +21,43 @@ const fixedAssetTransferSlice = createSlice({
         setFixedAssetTransfer: (state, action) => {
             const { key, value } = action.payload
             state[key] = value
-        }
+        },
+        setResetFixedAssetTransferInternal: (state, action) => {
+            state.companyName = null,
+                state.fromFloor = null,
+                state.fromLine = null,
+                state.assetNo = null,
+                state.transferDate = null,
+                state.toFloor = null,
+                state.toLine = null,
+                state.fromCompany = null,
+                state.toCompany = null,
+                state.remarks = ""
+        },
+        setResetFixedAssetTransferExternal: (state, action) => {
+            state.transferDate = null,
+                state.fromCompany = null,
+                state.toCompany = null,
+                state.remarks = ""
+        },
     }
 })
 
-export const { setFixedAssetTransfer } = fixedAssetTransferSlice.actions
+export const {
+    setFixedAssetTransfer,
+    setResetFixedAssetTransferInternal,
+    setResetFixedAssetTransferExternal,
+} = fixedAssetTransferSlice.actions
+
 export default fixedAssetTransferSlice.reducer
+
+// state.companyName = null,
+//     state.fromFloor = null,
+//     state.fromLine = null,
+//     state.assetNo = null,
+//     state.transferDate = null,
+//     state.toFloor = null,
+//     state.toLine = null,
+//     state.fromCompany = null,
+//     state.toCompany = null,
+//     state.remarks = "",

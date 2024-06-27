@@ -31,9 +31,9 @@ const queryFixedAssetTransfer = apiSlice.injectEndpoints({
         getViewListInternal: builder.query({
             query: (payload) => `${getViewListInternalFixedAssetTransfer}?ComID=${payload.comID}`
         }),
-        getViewListExternal: builder.query({
-            query: (payload) => `${getViewListExternalFixedAssetTransfer}?ComID=${payload.comID}`
-        })
+        // getViewListExternal: builder.query({
+        //     query: (payload) => `${getViewListExternalFixedAssetTransfer}?ComID=${payload.comID}`
+        // })
     })
 })
 
@@ -44,5 +44,5 @@ export const {
     useLazyGetAssetNoForFixedAssetTransferInternalQuery,
     useLazyGetAssetNoForFixedAssetTransferExternalQuery,
     useGetViewListInternalQuery,
-    useLazyGetViewListExternalQuery,
+    // useLazyGetViewListExternalQuery,
 } = queryFixedAssetTransfer

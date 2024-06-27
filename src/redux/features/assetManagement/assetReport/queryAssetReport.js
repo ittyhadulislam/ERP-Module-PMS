@@ -9,7 +9,8 @@ import {
     getExternalReport,
     getInternalReport,
     getRentedAssetReport,
-    getRunningReport
+    getRunningReport,
+    getScheduleMaintenanceReport
 } from './../../../../apiRoutes/assetManagement';
 
 const queryAssetReport = apiSlice.injectEndpoints({
@@ -87,6 +88,14 @@ const queryAssetReport = apiSlice.injectEndpoints({
                 },
             }),
         }),
+        getScheduleMaintenanceReport: builder.query({
+            query: ({ comID, userName }) => ({
+                url: `${getScheduleMaintenanceReport}?reportType=pdf&ComID=${comID}&UserName=${userName}`,
+                responseHandler: async (response) => {
+                    return getReportBlobs(response, "pdf");
+                },
+            }),
+        }),
     })
 })
 
@@ -100,4 +109,5 @@ export const {
     useLazyGetExternalTransferReportQuery,
     useLazyGetRentedAssetDetailsReportQuery,
     useLazyGetAssetDetailsMasterReportQuery,
+    useLazyGetScheduleMaintenanceReportQuery
 } = queryAssetReport

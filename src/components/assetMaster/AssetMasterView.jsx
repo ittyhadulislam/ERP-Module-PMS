@@ -7,6 +7,7 @@ import CustomTable from './../table/CustomTable';
 import { useLazyGetViewQuery } from '../../redux/features/assetManagement/assetMaster/queryAssetMaster';
 import { BiSelectMultiple } from "react-icons/bi";
 import { useSelector } from 'react-redux';
+import dayjs from 'dayjs';
 
 const AssetMasterView = ({
     setEditable = () => { },
@@ -54,57 +55,57 @@ const AssetMasterView = ({
             field: "mcAsstNo",
             headerName: "AssetNo",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            minWidth: 90,
+            maxWidth: 90,
         },
         {
             field: "mcDesc",
             headerName: "Machine Name",
             flex: 1,
-            minWidth: 250,
-            maxWidth: 250,
+            minWidth: 150,
+            maxWidth: 150,
         },
         {
             field: "cCmpName",
             headerName: "Company Name",
             flex: 1,
-            minWidth: 250,
-            maxWidth: 250,
+            minWidth: 200,
+            maxWidth: 200,
         },
         {
             field: "cDeptname",
             headerName: "Department",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
         },
         {
             field: "cSection_Description",
             headerName: "Section",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
         },
         {
             field: "cFloor_Descriptin",
             headerName: "Floor",
             flex: 1,
-            minWidth: 160,
-            maxWidth: 160,
+            // minWidth: 160,
+            // maxWidth: 160,
         },
         {
             field: "line_No",
             headerName: "Line",
             flex: 1,
-            minWidth: 130,
-            maxWidth: 130,
+            // minWidth: 130,
+            // maxWidth: 130,
         },
         {
             field: "options",
             headerName: "Asset Special Feature",
             flex: 1,
-            minWidth: 250,
-            maxWidth: 250,
+            minWidth: 150,
+            maxWidth: 150,
         },
         {
             field: "warrantyExpireDate",
@@ -112,27 +113,36 @@ const AssetMasterView = ({
             flex: 1,
             minWidth: 150,
             maxWidth: 150,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "mcGoodsInhousDate",
             headerName: "In-House Date",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "mcUser",
             headerName: "Input User",
             flex: 1,
-            minWidth: 130,
-            maxWidth: 130,
+            // minWidth: 130,
+            // maxWidth: 130,
         },
         {
             field: "mcDate",
             headerName: "Input Date",
             flex: 1,
-            minWidth: 130,
-            maxWidth: 130,
+            // minWidth: 130,
+            // maxWidth: 130,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
     ]
 

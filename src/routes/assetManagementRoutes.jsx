@@ -1,4 +1,5 @@
 import { lazy } from "react";
+// import Practice from "../page/Practice";
 
 const AssetMaster = lazy(() => import("../page/assetManagement/AssetMaster"))
 const FixedAssetTransfer = lazy(() => import("../page/assetManagement/FixedAssetTransfer"))
@@ -85,5 +86,10 @@ export const assetManagementRoutes = [
         pageName: "AssetReport",
         element: <AssetReport />
     },
+    // {
+    //     path: "/practice",
+    //     pageName: "Practice",
+    //     element: <Practice />
+    // }
 
 ]

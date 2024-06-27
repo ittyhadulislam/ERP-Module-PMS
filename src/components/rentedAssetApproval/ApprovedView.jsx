@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import CustomAppBar from '../common/CustomAppBar';
 import { useSelector } from 'react-redux';
 import { useLazyGetRentedAssetApprovedQuery } from '../../redux/features/assetManagement/rentedAssetApproval/queryRentedAssetApproval';
+import dayjs from 'dayjs';
 
 const ApprovedView = () => {
 
@@ -22,78 +23,90 @@ const ApprovedView = () => {
             field: "rentAssetNo",
             headerName: "AssetNo",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            minWidth: 90,
+            maxWidth: 90,
         },
         {
             field: "mcDesc",
             headerName: "Machine Name",
             flex: 1,
-            minWidth: 230,
-            maxWidth: 230,
+            minWidth: 200,
+            maxWidth: 200,
         },
         {
             field: "cCmpName",
             headerName: "Company Name",
             flex: 1,
-            minWidth: 250,
-            maxWidth: 250,
+            minWidth: 200,
+            maxWidth: 200,
         },
         {
             field: "cFloor_Descriptin",
             headerName: "Floor",
             flex: 1,
-            minWidth: 130,
-            maxWidth: 130,
+            // minWidth: 130,
+            // maxWidth: 130,
         },
         {
             field: "line_No",
             headerName: "Line",
             flex: 1,
-            minWidth: 120,
-            maxWidth: 120,
+            // minWidth: 120,
+            // maxWidth: 120,
         },
         {
             field: "rentDate",
             headerName: "Rent Date",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "returnDate",
             headerName: "Return Date",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "cUserFullname",
             headerName: "Created By",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
         },
         {
             field: "returnInputDate",
             headerName: "Created Date",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
         {
             field: "rentApproveBy",
             headerName: "Approved By",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
         },
         {
             field: "rentApproveDate",
             headerName: "Approved Date",
             flex: 1,
-            minWidth: 150,
-            maxWidth: 150,
+            // minWidth: 150,
+            // maxWidth: 150,
+            valueFormatter: (formateDate) => {
+                return dayjs(formateDate.value).format('DD-MMM-YYYY')
+            }
         },
     ]
     return (

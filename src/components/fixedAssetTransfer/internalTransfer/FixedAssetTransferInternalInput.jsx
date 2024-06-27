@@ -4,8 +4,11 @@ import CustomAppBar from '../../common/CustomAppBar';
 import CustomDatePicker from '../../inputs/CustomDatePicker';
 import CustomAutocomplete from '../../inputs/CustomAutocomplete';
 import CustomTextInput from '../../inputs/CustomTextInput';
-import { useSelector } from 'react-redux';
-import { setFixedAssetTransfer } from '../../../redux/features/assetManagement/fixedAssetTransfer/fixedAssetTransferSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    setFixedAssetTransfer,
+    setResetFixedAssetTransferInternal
+} from '../../../redux/features/assetManagement/fixedAssetTransfer/fixedAssetTransferSlice';
 import SubmitButton from '../../buttons/SubmitButton';
 import ReturnButton from '../../buttons/ReturnButton';
 import { useSaveFixedAssetTransferInternalMutation } from '../../../redux/features/assetManagement/fixedAssetTransfer/mutationFixedAssetTransfer';
@@ -23,6 +26,7 @@ import { successToast } from '../../../common/toaster/toaster';
 const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
 
     const { user } = useSelector(state => state.auth)
+    const dispatch = useDispatch()
     // console.log(user?.userName);
 
     const {
@@ -52,15 +56,25 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
 
     // console.log(fromFloor)
 
-    // ========== Line Name ===================
+    // ========== Line Name (From) ===================
 
-    const [setLineData, { data: lineData, isLoading: isLineLoading }] = useLazyGetLineForFixedAssetTransferQuery()
+    const [setFromLineData, { data: fromLineData, isLoading: isFromLineLoading }] = useLazyGetLineForFixedAssetTransferQuery()
 
     useEffect(() => {
         if (companyName && fromFloor) {
-            setLineData({ comID: companyName?.nCompanyID, floorID: fromFloor?.nFloor })
+            setFromLineData({ comID: companyName?.nCompanyID, floorID: fromFloor?.nFloor })
         }
     }, [companyName, fromFloor])
+
+    // ========== Line Name (To) ===================
+
+    const [setToLineData, { data: toLineData, isLoading: isToLineLoading }] = useLazyGetLineForFixedAssetTransferQuery()
+
+    useEffect(() => {
+        if (companyName && toFloor) {
+            setToLineData({ comID: companyName?.nCompanyID, floorID: toFloor?.nFloor })
+        }
+    }, [companyName, toFloor])
 
 
     // console.log(fromLine)
@@ -105,6 +119,7 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
             if (res) {
                 successToast(res?.data?.message)
                 setRefetchData(prev => prev + 1)
+                dispatch(setResetFixedAssetTransferInternal())
             }
         } catch (err) {
             console.log(err)
@@ -125,6 +140,7 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
                                         name='transferDate'
                                         value={transferDate}
                                         setReduxState={setFixedAssetTransfer}
+                                        required={true}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={4}>
@@ -137,6 +153,7 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
                                         value={companyName}
                                         setReduxState={setFixedAssetTransfer}
                                         loading={isCompanyLoading}
+                                        required={true}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={4}>
@@ -149,18 +166,20 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
                                         value={fromFloor}
                                         setReduxState={setFixedAssetTransfer}
                                         loading={isFloorLoading}
+                                        required={true}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={4}>
                                     <CustomAutocomplete
                                         label={"Line"}
                                         name={"fromLine"}
-                                        options={companyName && fromFloor ? lineData?.result ?? [] : []}
+                                        options={companyName && fromFloor ? fromLineData?.result ?? [] : []}
                                         optionId={"line_Code"}
                                         optionLabel={"line_No"}
                                         value={fromLine}
                                         setReduxState={setFixedAssetTransfer}
-                                        loading={isLineLoading}
+                                        loading={isFromLineLoading}
+                                        required={true}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={4}>
@@ -173,6 +192,7 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
                                         value={assetNo}
                                         setReduxState={setFixedAssetTransfer}
                                         loading={isAssetNoLoading}
+                                        required={true}
                                     />
                                 </Grid>
                             </Grid>
@@ -194,18 +214,20 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
                                         value={toFloor}
                                         setReduxState={setFixedAssetTransfer}
                                         loading={isFloorLoading}
+                                        required={true}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={6}>
                                     <CustomAutocomplete
                                         label={"Line"}
                                         name={"toLine"}
-                                        options={companyName && toFloor ? lineData?.result ?? [] : []}
+                                        options={companyName && toFloor ? toLineData?.result ?? [] : []}
                                         optionId={"line_Code"}
                                         optionLabel={"line_No"}
                                         value={toLine}
                                         setReduxState={setFixedAssetTransfer}
-                                        loading={isLineLoading}
+                                        loading={isToLineLoading}
+                                        required={true}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={12}>
@@ -215,6 +237,7 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
                                         value={remarks}
                                         setReduxState={setFixedAssetTransfer}
                                         multiline={true}
+                                        required={true}
                                     />
                                 </Grid>
                             </Grid>

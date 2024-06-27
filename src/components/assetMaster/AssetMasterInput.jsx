@@ -450,21 +450,20 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
-                            <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"}>
-                                <CustomAutocomplete
-                                    label={"Brand"}
-                                    name='brand'
-                                    loading={isBrandLoading}
-                                    optionId={"nBrand_ID"}
-                                    options={brandData ?? []}
-                                    optionLabel={"cBrand_Name"}
-                                    value={brand}
-                                    setReduxState={setAssetMaster}
-                                    // setSelectedValue={setBrand}
-                                    required={true}
-                                />
-                                <p>{editsble?.mcMake}</p>
-                            </Stack>
+                            <p style={{ fontSize: "10px", marginBottom: "3px" }}>{editsble?.mcMake}</p>
+                            <CustomAutocomplete
+                                label={`Brand`}
+                                name='brand'
+                                loading={isBrandLoading}
+                                optionId={"nBrand_ID"}
+                                options={brandData ?? []}
+                                optionLabel={"cBrand_Name"}
+                                value={brand}
+                                setReduxState={setAssetMaster}
+                                // setSelectedValue={setBrand}
+                                required={true}
+                            />
+                            {/* <p>{editsble?.mcMake}</p> */}
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
                             <CustomTextInput
@@ -654,8 +653,8 @@ const AssetMasterInput = ({ editsble, setAssetNumber = () => { }, setEditable = 
                                 multiline
                                 value={remarks}
                                 setReduxState={setAssetMaster}
-                                // setStateValue={setRemarks}
-                                required={true}
+                            // setStateValue={setRemarks}
+                            // required={true}
                             />
                         </Grid>
                     </Grid>

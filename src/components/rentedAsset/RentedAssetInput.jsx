@@ -19,7 +19,7 @@ import ResetButton from '../buttons/ResetButton';
 
 
 const RentedAssetInput = ({ getDetailsForEdit }) => {
-    console.log(getDetailsForEdit)
+    // console.log(getDetailsForEdit)
 
     const dispatch = useDispatch()
 
@@ -45,8 +45,6 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
         currency,
         totalRentedDays,
     } = useSelector(state => state.rentedAsset)
-
-    console.log(assetSpatialFeature)
 
 
     // ========== CurrentHolder ==========
@@ -122,9 +120,9 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                         inputUser: user?.userName
                     }
                 ]
-            console.log(payload)
+            // console.log(payload)
             const res = await saveRentedAssetDate(payload)
-            console.log(res)
+            // console.log(res)
             if (res) {
                 successToast(res?.data?.message)
                 dispatch(setRentedAssetReset())
@@ -138,7 +136,6 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
     useEffect(() => {
         if (getDetailsForEdit) {
             dispatch(setRentedAsset({ key: "currentHolder", value: { cCmpName: getDetailsForEdit?.cCmpName, nCompanyID: getDetailsForEdit?.nCompanyID } }))
-            // dispatch(setAssetMaster({ key: "company", value: { cCmpName: editsble?.cCmpName, nCompanyID: editsble?.mcCompanyID } }))
             dispatch(setRentedAsset({ key: "floor", value: { nFloor: getDetailsForEdit?.nFloor, cFloor_Descriptin: getDetailsForEdit?.cFloor_Descriptin } }))
             dispatch(setRentedAsset({ key: "line", value: { line_No: getDetailsForEdit?.line_No, line_Code: getDetailsForEdit?.line_Code } }))
             dispatch(setRentedAsset({ key: "challanNoText", value: getDetailsForEdit?.rentChallan }))
@@ -188,9 +185,9 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                 }
             ]
 
-            console.log(payload);
+            // console.log(payload);
             const response = await updatedData(payload)
-            console.log(response)
+            // console.log(response)
             if (response) {
                 successToast(response?.data?.message)
                 dispatch(setRentedAssetReset())
@@ -222,6 +219,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 value={currentHolder}
                                 loading={isCurrentHolderLoading}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             // setLocalState={setCurrentHolder}
                             />
                         </Grid>
@@ -235,6 +233,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 value={floor}
                                 loading={isFloorLoading}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -247,6 +246,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 value={line}
                                 loading={isLineLoading}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -255,6 +255,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 name='challanNoText'
                                 value={challanNoText}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -263,6 +264,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 name='rentedDate'
                                 value={rentedDate}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -271,6 +273,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 name='returnDate'
                                 value={returnDate}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -283,6 +286,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 value={assetCategory}
                                 loading={isAssetCategoryLoading}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -295,6 +299,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 value={assetSpatialFeature}
                                 loading={isAssetSpacialFeatureLoading}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -307,6 +312,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 value={assetStatus}
                                 loading={isAssetStatusLoading}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -319,6 +325,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 value={assetName}
                                 loading={isAssetNameLoading}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -327,6 +334,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 name='assetNo'
                                 value={assetNo}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -335,6 +343,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 name='serialNo'
                                 value={serialNo}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -347,6 +356,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 value={brand}
                                 loading={isBrandDataLoading}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -355,6 +365,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 name='model'
                                 value={model}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -367,6 +378,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 value={supplier}
                                 loading={isSupplierDataLoading}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -376,6 +388,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 name='costParDay'
                                 value={costParDay}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -388,6 +401,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 value={currency}
                                 loading={isCurrencyDataLoading}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -397,6 +411,7 @@ const RentedAssetInput = ({ getDetailsForEdit }) => {
                                 name='totalRentedDays'
                                 value={totalRentedDays}
                                 setReduxState={setRentedAsset}
+                                required={true}
                             />
                         </Grid>
                     </Grid>
