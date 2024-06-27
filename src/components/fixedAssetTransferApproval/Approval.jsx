@@ -15,7 +15,6 @@ const Approval = () => {
         getData(user?.companyID)
     }, [user])
 
-    console.log(data)
 
     const column = [
         {

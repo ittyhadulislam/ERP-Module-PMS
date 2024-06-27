@@ -4,7 +4,8 @@ const initialState = {
     companyName: null,
     fromFloor: null,
     fromLine: null,
-    assetNo: null,
+    assetNoInternal: null,
+    assetNoExternal: [],
     transferDate: null,
     toFloor: null,
     toLine: null,
@@ -26,7 +27,7 @@ const fixedAssetTransferSlice = createSlice({
             state.companyName = null,
                 state.fromFloor = null,
                 state.fromLine = null,
-                state.assetNo = null,
+                state.assetNoInternal = null,
                 state.transferDate = null,
                 state.toFloor = null,
                 state.toLine = null,
@@ -38,6 +39,7 @@ const fixedAssetTransferSlice = createSlice({
             state.transferDate = null,
                 state.fromCompany = null,
                 state.toCompany = null,
+                state.assetNoExternal = [],
                 state.remarks = ""
         },
     }

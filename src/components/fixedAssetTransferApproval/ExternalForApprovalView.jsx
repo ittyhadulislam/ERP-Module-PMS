@@ -14,7 +14,6 @@ import dayjs from 'dayjs';
 
 const ExternalForApprovalView = () => {
     const [selectedRow, setSelected] = useState([])
-    console.log("SELECTED:", selectedRow)
     const navigate = useNavigate()
     const { user } = useSelector(state => state.auth)
 
@@ -22,8 +21,6 @@ const ExternalForApprovalView = () => {
     const { data, isLoading, refetch } = useGetExternalTransferDetailsForApprovalQuery({
         comID: user?.companyID,
     })
-
-    console.log("DATA:", data)
 
     // update approval
     const [passPayloadOverUpdateAPI] = useUpdateExternalTransferApprovalMutation()

@@ -18,7 +18,7 @@ const InternalForApprovalView = () => {
     const navigate = useNavigate()
     const { user } = useSelector(state => state.auth)
 
-    console.log("Internal Selected : ", selectedRow)
+    // console.log("Internal Selected : ", selectedRow)
 
     // get and show data
     const { data, isLoading, refetch } = useGetInternalTransferDetailsForApprovalQuery({

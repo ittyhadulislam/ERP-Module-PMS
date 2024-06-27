@@ -10,7 +10,6 @@ import {
     setResetFixedAssetTransferInternal
 } from '../../../redux/features/assetManagement/fixedAssetTransfer/fixedAssetTransferSlice';
 import SubmitButton from '../../buttons/SubmitButton';
-import ReturnButton from '../../buttons/ReturnButton';
 import { useSaveFixedAssetTransferInternalMutation } from '../../../redux/features/assetManagement/fixedAssetTransfer/mutationFixedAssetTransfer';
 import {
     useGetCompanyForFixedAssetTransferQuery,
@@ -19,6 +18,7 @@ import {
     useLazyGetLineForFixedAssetTransferQuery
 } from '../../../redux/features/assetManagement/fixedAssetTransfer/queryFixedAssetTransfer';
 import { successToast } from '../../../common/toaster/toaster';
+import ResetButton from '../../buttons/ResetButton';
 
 
 
@@ -33,7 +33,7 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
         companyName,
         fromFloor,
         fromLine,
-        assetNo,
+        assetNoInternal,
         transferDate,
         toFloor,
         toLine,
@@ -106,7 +106,7 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
                     floorTo: toFloor?.nFloor,
                     lineFrom: fromLine?.line_Code,
                     lineTo: toLine?.line_Code,
-                    assetNo: assetNo?.mcAsstNo,
+                    assetNo: assetNoInternal?.mcAsstNo,
                     status: "IN",
                     remarks: remarks,
                     inputUser: user?.userName
@@ -126,13 +126,18 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
         }
     }
 
+    // ===== reset =====
+    const handelReset = () => {
+        dispatch(setResetFixedAssetTransferInternal())
+    }
+
     return (
         <>
-            <Grid container spacing={2} marginBottom={2}>
-                <Grid item xs={12} sm={6}>
-                    <CustomAppBar title={"From"} />
-                    <Box sx={{ p: 1, border: "1px dashed grey", borderTop: "none" }}>
-                        <form>
+            <form onSubmit={handelSubmit}>
+                <Grid container spacing={2} marginBottom={2}>
+                    <Grid item xs={12} sm={6}>
+                        <CustomAppBar title={"From"} />
+                        <Box sx={{ p: 1, border: "1px dashed grey", borderTop: "none" }}>
                             <Grid container spacing={1} mt={"1px"}>
                                 <Grid item xs={12} sm={6} md={4}>
                                     <CustomDatePicker
@@ -185,24 +190,22 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
                                 <Grid item xs={12} sm={6} md={4}>
                                     <CustomAutocomplete
                                         label={"Asset No#"}
-                                        name={"assetNo"}
+                                        name={"assetNoInternal"}
                                         options={companyName && fromFloor && fromLine ? assetNoDate?.result ?? [] : []}
                                         optionId={"mcAsstNo"}
                                         optionLabel={"mcAsstNo"}
-                                        value={assetNo}
+                                        value={assetNoInternal}
                                         setReduxState={setFixedAssetTransfer}
                                         loading={isAssetNoLoading}
                                         required={true}
                                     />
                                 </Grid>
                             </Grid>
-                        </form>
-                    </Box>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <CustomAppBar title={"To"} />
-                    <Box sx={{ p: 1, border: "1px dashed grey", borderTop: "none" }}>
-                        <form>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <CustomAppBar title={"To"} />
+                        <Box sx={{ p: 1, border: "1px dashed grey", borderTop: "none" }}>
                             <Grid container spacing={1} mt={"1px"}>
                                 <Grid item xs={12} sm={6} md={6}>
                                     <CustomAutocomplete
@@ -237,34 +240,34 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
                                         value={remarks}
                                         setReduxState={setFixedAssetTransfer}
                                         multiline={true}
-                                        required={true}
                                     />
                                 </Grid>
                             </Grid>
-                        </form>
-                    </Box>
+
+                        </Box>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Box sx={{ my: 1, mb: 0, border: "1px dashed grey", mr: "1px", marginBottom: 2 }}>
-                <Stack
-                    direction={"row"}
-                    p={0.5}
-                    spacing={2}
-                    justifyContent="end"
-                >
-                    <ReturnButton
-                        title={"Clear"}
-                        type='reset'
-                        loading={""}
-                    />
-                    <SubmitButton
-                        title={"Save"}
-                        type='submit'
-                        loading={""}
-                        handleClick={handelSubmit}
-                    />
-                </Stack>
-            </Box>
+                <Box sx={{ my: 1, mb: 0, border: "1px dashed grey", mr: "1px", marginBottom: 2 }}>
+                    <Stack
+                        direction={"row"}
+                        p={0.5}
+                        spacing={2}
+                        justifyContent="end"
+                    >
+                        <ResetButton
+                            title={"Clear"}
+                            type='reset'
+                            handleClick={handelReset}
+                        />
+                        <SubmitButton
+                            title={"Save"}
+                            type='submit'
+                            loading={""}
+                        // handleClick={}
+                        />
+                    </Stack>
+                </Box>
+            </form>
         </>
     );
 };
