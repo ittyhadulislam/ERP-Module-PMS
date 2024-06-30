@@ -140,6 +140,7 @@ const RunningRepairInput = ({ setRefetch }) => {
                                 value={assetNo}
                                 setReduxState={setRunningRepair}
                                 loading={isAssetNoLoading}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -196,6 +197,7 @@ const RunningRepairInput = ({ setRefetch }) => {
                                 name='nextServiceDate'
                                 value={nextServiceDate}
                                 setReduxState={setRunningRepair}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -204,6 +206,7 @@ const RunningRepairInput = ({ setRefetch }) => {
                                 name='lastServiceDate'
                                 value={lastServiceDate}
                                 setReduxState={setRunningRepair}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -212,6 +215,7 @@ const RunningRepairInput = ({ setRefetch }) => {
                                 name='repairDate'
                                 value={repairDate}
                                 setReduxState={setRunningRepair}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -220,6 +224,7 @@ const RunningRepairInput = ({ setRefetch }) => {
                                 name='repairDescription'
                                 value={repairDescription}
                                 setReduxState={setRunningRepair}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -228,6 +233,7 @@ const RunningRepairInput = ({ setRefetch }) => {
                                 name='itemReplace'
                                 value={itemReplace}
                                 setReduxState={setRunningRepair}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -237,6 +243,7 @@ const RunningRepairInput = ({ setRefetch }) => {
                                 name='faultReportedTime'
                                 value={faultReportedTime}
                                 setReduxState={setRunningRepair}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -246,6 +253,7 @@ const RunningRepairInput = ({ setRefetch }) => {
                                 name='downTime'
                                 value={downTime}
                                 setReduxState={setRunningRepair}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -255,6 +263,7 @@ const RunningRepairInput = ({ setRefetch }) => {
                                 name='AttendedTime'
                                 value={AttendedTime}
                                 setReduxState={setRunningRepair}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -263,6 +272,7 @@ const RunningRepairInput = ({ setRefetch }) => {
                                 name='readyDate'
                                 value={readyDate}
                                 setReduxState={setRunningRepair}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -271,6 +281,7 @@ const RunningRepairInput = ({ setRefetch }) => {
                                 name='doneBy'
                                 value={doneBy}
                                 setReduxState={setRunningRepair}
+                                required={true}
                             />
                         </Grid>
                     </Grid>

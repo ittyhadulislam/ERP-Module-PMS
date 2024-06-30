@@ -17,24 +17,26 @@ const queryAssetReport = apiSlice.injectEndpoints({
     overrideExisting: true,
     endpoints: builder => ({
         getAssetManagementReport: builder.query({
-            query: ({ comID, userName }) => ({
-                url: `${getAssetManagementReport}?reportType=pdf&comID=${comID}&UserName=${userName}`,
+            query: ({ comID, userName, floorID, lineID, status, assetCategory, fromDate, toDate }) => ({
+                // url: `${getAssetManagementReport}?reportType=pdf&comID=${comID}&UserName=${userName}`,
+                url: `${getAssetManagementReport}?reportType=pdf&ComID=${comID}&UserName=${userName}&floor=${floorID}&Line=${lineID}&status=${status}&AssetCetagory=${assetCategory}&FromDate=${fromDate}&ToDate=${toDate}`,
                 responseHandler: async (response) => {
                     return getReportBlobs(response, "pdf");
                 }
             })
         }),
         getAssetInformationDetailsReport: builder.query({
-            query: ({ comID, userName }) => ({
-                url: `${getAssetInformationDetails}?reportType=pdf&ComID=${comID}&UserName=${userName}`,
+            query: ({ comID, userName, floorID, lineID, status, assetCategory, fromDate, toDate }) => ({
+                url: `${getAssetInformationDetails}?reportType=pdf&ComID=${comID}&UserName=${userName}&floor=${floorID}&Line=${lineID}&status=${status}&AssetCetagory=${assetCategory}&FromDate=${fromDate}&ToDate=${toDate}`,
                 responseHandler: async (response) => {
                     return getReportBlobs(response, "pdf");
                 }
             })
         }),
         getAssetDetailsSummaryReport: builder.query({
-            query: ({ comID, userName }) => ({
-                url: `${getAssetDetailsSummaryReport}?reportType=pdf&comID=${comID}&UserName=${userName}`,
+            query: ({ comID, userName, floorID, lineID, status, assetCategory, fromDate, toDate }) => ({
+                // url: `${getAssetDetailsSummaryReport}?reportType=pdf&comID=${comID}&UserName=${userName}`,
+                url: `${getAssetDetailsSummaryReport}?reportType=pdf&ComID=${comID}&UserName=${userName}&floor=${floorID}&Line=${lineID}&status=${status}&AssetCetagory=${assetCategory}&FromDate=${fromDate}&ToDate=${toDate}`,
                 responseHandler: async (response) => {
                     return getReportBlobs(response, "pdf");
                 },
@@ -49,8 +51,9 @@ const queryAssetReport = apiSlice.injectEndpoints({
             }),
         }),
         getAssetRunningRepairReport: builder.query({
-            query: ({ comID, userName }) => ({
-                url: `${getRunningReport}?reportType=pdf&comID=${comID}&UserName=${userName}`,
+            query: ({ comID, userName, floorID, lineID, fromDate, toDate }) => ({
+                // url: `${getRunningReport}?reportType=pdf&comID=${comID}&UserName=${userName}`,
+                url: `${getRunningReport}?reportType=pdf&ComID=${comID}&UserName=${userName}&floor=${floorID}&Line=${lineID}&FromDate=${fromDate}&ToDate=${toDate}`,
                 responseHandler: async (response) => {
                     return getReportBlobs(response, "pdf");
                 },
@@ -74,6 +77,7 @@ const queryAssetReport = apiSlice.injectEndpoints({
         }),
         getRentedAssetDetailsReport: builder.query({
             query: ({ comID, userName }) => ({
+                // url: `${getRentedAssetReport}?reportType=pdf&ComID=${comID}&UserName=${userName}`,
                 url: `${getRentedAssetReport}?reportType=pdf&ComID=${comID}&UserName=${userName}`,
                 responseHandler: async (response) => {
                     return getReportBlobs(response, "pdf");
@@ -81,16 +85,17 @@ const queryAssetReport = apiSlice.injectEndpoints({
             }),
         }),
         getAssetDetailsMasterReport: builder.query({
-            query: ({ comID, userName }) => ({
-                url: `${getAssetDetailMasterReport}?reportType=pdf&ComID=${comID}&UserName=${userName}`,
+            query: ({ comID, userName, floorID, lineID, status, assetCategory, fromDate, toDate }) => ({
+                // url: `${getAssetDetailMasterReport}?reportType=pdf&ComID=${comID}&UserName=${userName}`,
+                url: `${getAssetDetailMasterReport}?reportType=pdf&ComID=${comID}&UserName=${userName}&floor=${floorID}&Line=${lineID}&status=${status}&AssetCetagory=${assetCategory}&FromDate=${fromDate}&ToDate=${toDate}`,
                 responseHandler: async (response) => {
                     return getReportBlobs(response, "pdf");
                 },
             }),
         }),
         getScheduleMaintenanceReport: builder.query({
-            query: ({ comID, userName }) => ({
-                url: `${getScheduleMaintenanceReport}?reportType=pdf&ComID=${comID}&UserName=${userName}`,
+            query: ({ comID, userName, floorID, lineID, fromDate, toDate }) => ({
+                url: `${getScheduleMaintenanceReport}?reportType=pdf&comID=${comID}&UserName=${userName}&floor=${floorID}&Line=${lineID}&FromDate=${fromDate}&ToDate=${toDate}`,
                 responseHandler: async (response) => {
                     return getReportBlobs(response, "pdf");
                 },

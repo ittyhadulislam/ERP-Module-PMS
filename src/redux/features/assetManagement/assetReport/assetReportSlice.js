@@ -9,7 +9,8 @@ const initialState = {
     AssetCategory: null,
     status: null,
     floor: null,
-    line: null
+    line: null,
+    supplier: null
 }
 
 const assetReportSlice = createSlice({
@@ -21,18 +22,24 @@ const assetReportSlice = createSlice({
             state[key] = value
         },
         setResetReport: (state, action) => {
-            state.company = null
-
-            // state.fromDate = null,
-            // state.toDate = null,
-            // state.AssetCategory = null,
-            // state.status = null,
-            // state.floor = null,
-            // state.line = null
+            state.company = null,
+                state.fromDate = null,
+                state.toDate = null,
+                state.AssetCategory = null,
+                state.status = null,
+                state.floor = null,
+                state.line = null,
+                state.supplier = null
         },
         setResetReportForExternal: (state, action) => {
             state.fromCom = null,
-                state.toCom = null
+                state.toCom = null,
+                state.fromDate = null,
+                state.toDate = null,
+                state.AssetCategory = null,
+                state.status = null,
+                state.floor = null,
+                state.line = null
         }
     })
 })

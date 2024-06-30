@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 
 const InternalForApprovalView = () => {
     const [selectedRow, setSelected] = useState([])
-    const [filterData, setFilterData] = useState([])
+    // const [filterData, setFilterData] = useState([])
     const navigate = useNavigate()
     const { user } = useSelector(state => state.auth)
 
@@ -47,11 +47,11 @@ const InternalForApprovalView = () => {
         }
     }
 
-    useEffect(() => {
-        if (data?.length > 0) {
-            setFilterData(data?.filter(item => item?.iet_approve === false))
-        }
-    }, [data])
+    // useEffect(() => {
+    //     if (data?.length > 0) {
+    //         setFilterData(data?.filter(item => item?.iet_approve === false))
+    //     }
+    // }, [data])
 
 
     // redirect to fixed asset transfer
@@ -133,11 +133,11 @@ const InternalForApprovalView = () => {
             <CustomTable
                 columns={column}
                 // rows={data?.map((row, id) => ({ ...row, id }))}
-                rows={filterData?.map((row, id) => ({ ...row, id }))}
+                rows={data?.map((row, id) => ({ ...row, id }))}
                 checkboxSelection
                 setSelectedRows={setSelected}
                 loading={isLoading}
-                height={filterData?.length ? "auto" : "300px"}
+                height={data?.length ? "auto" : "300px"}
             />
             <Box sx={{ my: 1, mb: 0, border: "1px dashed grey", mr: "1px" }}>
                 <Stack

@@ -11,6 +11,7 @@ import { useSaveFixedAssetTransferExternalMutation } from '../../../redux/featur
 import SubmitButton from '../../buttons/SubmitButton';
 import { successToast } from '../../../common/toaster/toaster';
 import CustomMultiAutocomplete from './../../inputs/CustomMultiAutocomplete';
+// import MultipleAutoComplete from './../../inputs/CustomMultiAutocomplete';
 import ResetButton from './../../buttons/ResetButton';
 
 const FixedAssetTransferExternalInput = () => {
@@ -50,7 +51,6 @@ const FixedAssetTransferExternalInput = () => {
                 date: transferDate,
                 comFrom: fromCompany?.nCompanyID,
                 comTo: toCompany?.nCompanyID,
-                // assetNo: assetNo?.mcAsstNo,
                 assetNo: singleAssetNo?.mcAsstNo,
                 status: "Ex",
                 remarks: remarks,
@@ -89,7 +89,6 @@ const FixedAssetTransferExternalInput = () => {
                     <Grid item sx={12} md={6}>
                         <CustomAppBar title={"From"} />
                         <Box sx={{ p: 1, border: "1px dashed grey", borderTop: "none" }}>
-
                             <Grid container spacing={1} mt={"1px"}>
                                 <Grid item xs={12} sm={6} md={6}>
                                     <CustomDatePicker
@@ -109,7 +108,7 @@ const FixedAssetTransferExternalInput = () => {
                                         optionLabel={"cCmpName"}
                                         value={fromCompany}
                                         setReduxState={setFixedAssetTransfer}
-                                        loading={isAssetNoLoading}
+                                        loading={isCompanyLoading}
                                         required={true}
                                     />
                                 </Grid>
@@ -117,28 +116,16 @@ const FixedAssetTransferExternalInput = () => {
                                     <CustomMultiAutocomplete
                                         label={"Asset No#"}
                                         name={"assetNoExternal"}
-                                        options={fromCompany ? getAssetNo?.result ?? [] : []}
+                                        options={getAssetNo?.result ?? []}
                                         optionLabel={"mcAsstNo"}
                                         optionId={"mcAsstNo"}
                                         value={assetNoExternal}
                                         setReduxState={setFixedAssetTransfer}
-                                        loading={isCompanyLoading}
+                                        loading={isAssetNoLoading}
                                         required={true}
                                     />
-                                    {/* <CustomMultiAutocomplete2
-                                    label={"Asset No#"}
-                                    name={"assetNoExternal"}
-                                    options={fromCompany ? getAssetNo?.result ?? [] : []}
-                                    optionLabel={"mcAsstNo"}
-                                    optionId={"mcAsstNo"}
-                                    value={assetNoExternal}
-                                    setReduxState={setFixedAssetTransfer}
-                                    loading={isCompanyLoading}
-                                    required={true}
-                                /> */}
                                 </Grid>
                             </Grid>
-
                         </Box>
                     </Grid>
                     <Grid item sx={12} md={6}>
@@ -165,7 +152,7 @@ const FixedAssetTransferExternalInput = () => {
                                         value={remarks}
                                         setReduxState={setFixedAssetTransfer}
                                         multiline={true}
-                                        required={true}
+                                    // required={true}
                                     />
                                 </Grid>
                             </Grid>
@@ -188,7 +175,7 @@ const FixedAssetTransferExternalInput = () => {
                             title={"Save"}
                             type='submit'
                             loading={isFixedAssetTransferLoading}
-                        // handleClick={}
+                            disabled={assetNoExternal.length > 0 ? false : true}
                         />
                     </Stack>
                 </Box>

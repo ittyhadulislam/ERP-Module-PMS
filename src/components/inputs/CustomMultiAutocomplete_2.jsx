@@ -55,9 +55,9 @@ const CustomMultiAutocomplete2 = ({
                 matchFrom: "start",
                 stringify: (option) => option[optionLabel]?.toString(),
             })}
-            // isOptionEqualToValue={(option, value) =>
-            //     option[optionId] === value[optionId]
-            // }
+            isOptionEqualToValue={(option, value) =>
+                option[optionId] === value[optionId]
+            }
             // onChange={(e, newValue) => {
             //     if (newValue) {
             //         setReduxState &&

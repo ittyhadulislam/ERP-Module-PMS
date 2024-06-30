@@ -122,6 +122,7 @@ const ScheduleMaintenanceInput = ({ getServiceType, setIsSuccess = () => { } }) 
                                 value={assetNo}
                                 loading={isAssetNoLoading}
                                 setReduxState={setScheduleMaintenance}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -178,6 +179,7 @@ const ScheduleMaintenanceInput = ({ getServiceType, setIsSuccess = () => { } }) 
                                 name='nextServiceDate'
                                 value={nextServiceDate}
                                 setReduxState={setScheduleMaintenance}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -186,6 +188,7 @@ const ScheduleMaintenanceInput = ({ getServiceType, setIsSuccess = () => { } }) 
                                 name='LastServiceDate'
                                 value={LastServiceDate}
                                 setReduxState={setScheduleMaintenance}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -194,6 +197,7 @@ const ScheduleMaintenanceInput = ({ getServiceType, setIsSuccess = () => { } }) 
                                 name='itemToBeReplace'
                                 value={itemToBeReplace}
                                 setReduxState={setScheduleMaintenance}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -202,6 +206,7 @@ const ScheduleMaintenanceInput = ({ getServiceType, setIsSuccess = () => { } }) 
                                 name='readyDate'
                                 value={readyDate}
                                 setReduxState={setScheduleMaintenance}
+                                required={true}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} md={2}>
@@ -210,6 +215,7 @@ const ScheduleMaintenanceInput = ({ getServiceType, setIsSuccess = () => { } }) 
                                 name='doneBy'
                                 value={doneBy}
                                 setReduxState={setScheduleMaintenance}
+                                required={true}
                             />
                         </Grid>
                     </Grid>

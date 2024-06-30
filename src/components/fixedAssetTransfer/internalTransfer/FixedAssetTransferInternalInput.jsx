@@ -263,7 +263,7 @@ const FixedAssetTransferInternalInput = ({ setRefetchData }) => {
                             title={"Save"}
                             type='submit'
                             loading={""}
-                        // handleClick={}
+                            disabled={assetNoInternal ? false : true}
                         />
                     </Stack>
                 </Box>

@@ -6,7 +6,7 @@ import CustomAutocomplete from '../../components/inputs/CustomAutocomplete';
 import CustomDatePicker from '../../components/inputs/CustomDatePicker';
 import ReportButton from './../../components/buttons/ReportButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetAssetCategoryQuery, useGetAssetStatusQuery, useGetCompanyQuery, useLazyGetFloorQuery, useLazyGetLineQuery } from '../../redux/features/assetManagement/assetMaster/queryAssetMaster';
+import { useGetAssetCategoryQuery, useGetAssetStatusQuery, useGetCompanyQuery, useGetSupplierNameQuery, useLazyGetFloorQuery, useLazyGetLineQuery } from '../../redux/features/assetManagement/assetMaster/queryAssetMaster';
 import {
     setAssetReport,
     setResetReport,
@@ -45,12 +45,14 @@ const AssetReport = () => {
         AssetCategory,
         status,
         floor,
-        line
+        line,
+        supplier
     } = useSelector(state => state.assetReport)
 
     const { data: companyData, isLoading: isCompanyLoading } = useGetCompanyQuery()
     const { data: assetCategoryData, isLoading: isAssetCategoryLoading } = useGetAssetCategoryQuery()
     const { data: assetStatusData, isLoading: isAssetStatusLoading } = useGetAssetStatusQuery()
+    const { data: supplierData, isLoading: isSupplierLoading } = useGetSupplierNameQuery()
 
     // ----- floor -----
     const [setFloorData, { data: floorData, isLoading: isFloorLoading }] = useLazyGetFloorQuery()
@@ -330,16 +332,27 @@ const AssetReport = () => {
             passValueForAssetDetailsSummaryReport(
                 {
                     comID: company?.nCompanyID,
-                    userName: user?.userName
+                    userName: user?.userName,
+                    floorID: floor?.nFloor ? floor?.nFloor : "",
+                    lineID: line?.line_Code ? line?.line_Code : "",
+                    status: status?.statusId ? status?.statusId : "",
+                    assetCategory: AssetCategory?.acat_id ? AssetCategory?.acat_id : "",
+                    fromDate: fromDate,
+                    toDate: toDate,
                 }
             )
-
         }
         else if (reportTitle === "Asset Information Details") {
             passValueForAssetInformationDetailsReport(
                 {
                     comID: company?.nCompanyID,
-                    userName: user?.userName
+                    userName: user?.userName,
+                    floorID: floor?.nFloor ? floor?.nFloor : "",
+                    lineID: line?.line_Code ? line?.line_Code : "",
+                    status: status?.statusId ? status?.statusId : "",
+                    assetCategory: AssetCategory?.acat_id ? AssetCategory?.acat_id : "",
+                    fromDate: fromDate,
+                    toDate: toDate,
                 }
             )
         }
@@ -347,7 +360,13 @@ const AssetReport = () => {
             passValueForAssetManagementReport(
                 {
                     comID: company?.nCompanyID,
-                    userName: user?.userName
+                    userName: user?.userName,
+                    floorID: floor?.nFloor ? floor?.nFloor : "",
+                    lineID: line?.line_Code ? line?.line_Code : "",
+                    status: status?.statusId ? status?.statusId : "",
+                    assetCategory: AssetCategory?.acat_id ? AssetCategory?.acat_id : "",
+                    fromDate: fromDate,
+                    toDate: toDate,
                 }
             )
         }
@@ -361,7 +380,13 @@ const AssetReport = () => {
             passValueForRunningRepairReport(
                 {
                     comID: company?.nCompanyID,
-                    userName: user?.userName
+                    userName: user?.userName,
+                    floorID: floor?.nFloor ? floor?.nFloor : "",
+                    lineID: line?.line_Code ? line?.line_Code : "",
+                    // status: status?.statusId ? status?.statusId : "",
+                    // assetCategory: AssetCategory?.acat_id ? AssetCategory?.acat_id : "",
+                    fromDate: fromDate,
+                    toDate: toDate,
                 }
             )
         }
@@ -394,15 +419,29 @@ const AssetReport = () => {
             passValueForAssetManagementDetailMasterReport(
                 {
                     comID: company?.nCompanyID,
-                    userName: user?.userName
+                    userName: user?.userName,
+                    floorID: floor?.nFloor ? floor?.nFloor : "",
+                    lineID: line?.line_Code ? line?.line_Code : "",
+                    status: status?.statusId ? status?.statusId : "",
+                    assetCategory: AssetCategory?.acat_id ? AssetCategory?.acat_id : "",
+                    fromDate: fromDate,
+                    toDate: toDate,
                 }
             )
         }
         else if (reportTitle === "Scheduled Maintenance Report") {
-            passValueForScheduleMaintenanceReport({
-                comID: company?.nCompanyID,
-                userName: user?.userName
-            })
+            passValueForScheduleMaintenanceReport(
+                {
+                    comID: company?.nCompanyID,
+                    userName: user?.userName,
+                    floorID: floor?.nFloor ? floor?.nFloor : "",
+                    lineID: line?.line_Code ? line?.line_Code : "",
+                    // status: status?.statusId ? status?.statusId : "",
+                    // assetCategory: AssetCategory?.acat_id ? AssetCategory?.acat_id : "",
+                    fromDate: fromDate,
+                    toDate: toDate,
+                }
+            )
         }
         else {
             infoToast("Please Select a Report");
@@ -528,7 +567,6 @@ const AssetReport = () => {
                                                 required={true}
                                             />
                                         </Grid>
-
                                 }
                                 <Grid item xs={12} sm={6} md={6}>
                                     <CustomDatePicker
@@ -536,6 +574,7 @@ const AssetReport = () => {
                                         name='fromDate'
                                         value={fromDate}
                                         setReduxState={setAssetReport}
+                                        required={true}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={6}>
@@ -544,31 +583,63 @@ const AssetReport = () => {
                                         name='toDate'
                                         value={toDate}
                                         setReduxState={setAssetReport}
+                                        required={true}
+                                    // disablePast={true}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={6}>
-                                    <CustomAutocomplete
-                                        label={"Asset Category"}
-                                        name='AssetCategory'
-                                        optionId={"acat_id"}
-                                        options={assetCategoryData ?? []}
-                                        optionLabel={"acat_name"}
-                                        value={AssetCategory}
-                                        setReduxState={setAssetReport}
-                                        loading={isAssetCategoryLoading}
-                                    />
+                                    {
+                                        reportTitle === "Scheduled Maintenance Report" ?
+                                            <CustomAutocomplete
+                                                label={"Asset Category"}
+                                                name='AssetCategory'
+                                                optionId={"acat_id"}
+                                                options={assetCategoryData ?? []}
+                                                optionLabel={"acat_name"}
+                                                value={AssetCategory}
+                                                setReduxState={setAssetReport}
+                                                loading={isAssetCategoryLoading}
+                                                disabled
+                                            />
+                                            :
+                                            <CustomAutocomplete
+                                                label={"Asset Category"}
+                                                name='AssetCategory'
+                                                optionId={"acat_id"}
+                                                options={assetCategoryData ?? []}
+                                                optionLabel={"acat_name"}
+                                                value={AssetCategory}
+                                                setReduxState={setAssetReport}
+                                                loading={isAssetCategoryLoading}
+                                            />
+                                    }
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={6}>
-                                    <CustomAutocomplete
-                                        label={"Status"}
-                                        name='status'
-                                        loading={isAssetStatusLoading}
-                                        optionId={"statusId"}
-                                        options={assetStatusData ?? []}
-                                        optionLabel={"statusName"}
-                                        value={status}
-                                        setReduxState={setAssetReport}
-                                    />
+                                    {
+                                        reportTitle === "Scheduled Maintenance Report" ?
+                                            <CustomAutocomplete
+                                                label={"Status"}
+                                                name='status'
+                                                loading={isAssetStatusLoading}
+                                                optionId={"statusId"}
+                                                options={assetStatusData ?? []}
+                                                optionLabel={"statusName"}
+                                                value={status}
+                                                setReduxState={setAssetReport}
+                                                disabled
+                                            />
+                                            :
+                                            <CustomAutocomplete
+                                                label={"Status"}
+                                                name='status'
+                                                loading={isAssetStatusLoading}
+                                                optionId={"statusId"}
+                                                options={assetStatusData ?? []}
+                                                optionLabel={"statusName"}
+                                                value={status}
+                                                setReduxState={setAssetReport}
+                                            />
+                                    }
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={6}>
                                     <CustomAutocomplete
@@ -593,6 +664,23 @@ const AssetReport = () => {
                                         setReduxState={setAssetReport}
                                     />
                                 </Grid>
+                                {
+                                    reportTitle === "Rented Asset Details Report" ?
+                                        <Grid item xs={12} sm={6} md={12}>
+                                            <CustomAutocomplete
+                                                label={"Supplier"}
+                                                name='supplier'
+                                                loading={isSupplierLoading}
+                                                options={supplierData ?? []}
+                                                optionId={"cSupCode"}
+                                                optionLabel={"cSupName"}
+                                                value={supplier}
+                                                setReduxState={setAssetReport}
+                                                required={true}
+                                            />
+                                        </Grid>
+                                        : ""
+                                }
                                 <Grid item xs={12} sm={6} md={12}>
                                     {/* <SubmitButton fullWidth title={"Generate Report"} /> */}
                                     <ReportButton

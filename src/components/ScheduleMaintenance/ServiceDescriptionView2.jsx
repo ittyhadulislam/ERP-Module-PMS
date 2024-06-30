@@ -10,8 +10,8 @@ const ServiceDescriptionView2 = () => {
             field: "AssetNo",
             headerName: "AssetNo",
             flex: 1,
-            minWidth: 100,
-            maxWidth: 100,
+            minWidth: 90,
+            maxWidth: 90,
         },
         {
             field: "NextServiceDate",
